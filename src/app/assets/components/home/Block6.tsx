@@ -65,8 +65,8 @@ const Block6 = () => {
             1. Demande de réservation
           </p>
           <p className="text text-gray-600 mt-2 px-2">
-            Transport événementiel, occasionnel, touristique, ou d'affaires,
-            n'hésitez pas à formuler vos demandes.
+            Transport événementiel, occasionnel, touristique, ou d affaires, n
+            hésitez pas à formuler vos demandes.
           </p>
           <div className="flex justify-around mt-4">
             <ResaButton />
@@ -81,14 +81,14 @@ const Block6 = () => {
             </p>
             <p className="text text-gray-600 mt-1 px-2">
               Commandez un taxi conventionné qui vous fera bénéficier du tiers
-              payant. Vous ne faites pas l'avance des frais de votre course. Ils
+              payant. Vous ne faites pas l avance des frais de votre course. Ils
               vous sont payés par la sécurité sociale.
             </p>
           </div>
           <div className="mt-8 mb-8">
             <p className="text-2xl font-semibold">3. Profitez</p>
             <p className="text-gray-600 mt-1 px-2">
-              C'est le moment de vous détendre, profitez du confort de nos
+              C est le moment de vous détendre, profitez du confort de nos
               véhicules et relaxez vous.
             </p>
           </div>
