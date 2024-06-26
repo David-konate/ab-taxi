@@ -1,38 +1,275 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { schemaContact1, schemaContact2 } from "@/app/lib/validation";
 import ResaButton from "../buttons/ResaButton";
-import ContactButton from "../buttons/ContactButton";
 import ContactButtonNav from "../buttons/ContactButtonNav";
+import { SubmitHandler } from "react-hook-form"; // Import SubmitHandler type
 
-const VosCoordonnees = () => (
-  <div className="flex flex-col xl:p-3">
-    <div className="py-4">
-      <p className="title text-gray-800 text-3xl font-bold">Vos coordonnées</p>
-    </div>
-    {/* Ajoutez ici les champs du formulaire pour les coordonnées */}
-  </div>
-);
-
-const VotreTrajet = () => (
-  <div className="flex flex-col xl:p-3">
-    <div className="py-4">
-      <p className="title text-gray-800 text-3xl font-bold">Votre trajet</p>
-    </div>
-    {/* Ajoutez ici les champs du formulaire pour le trajet */}
-  </div>
-);
-
-const Confirmation = () => (
-  <div className="flex flex-col xl:p-3">
-    <div className="py-4">
-      <p className="title text-gray-800 text-3xl font-bold">Confirmation</p>
-    </div>
-    {/* Ajoutez ici les informations de confirmation */}
-  </div>
-);
+type FormValues = {
+  nom: string;
+  prenom: string;
+  email: string;
+  adresse: string;
+  phone: string;
+  service: string;
+  heureRdv: string;
+  joursRdv: string;
+  heurePriseEnCharge: string;
+  adressePriseEnCharge: string;
+  adresseDestination: string;
+};
 
 const Block6 = () => {
   const [currentStep, setCurrentStep] = useState(0);
+  const [mail, setMail] = useState<FormValues>({
+    nom: "",
+    prenom: "",
+    adresse: "",
+    email: "",
+    phone: "",
+    service: "",
+    joursRdv: "",
+    heureRdv: "",
+    heurePriseEnCharge: "",
+    adressePriseEnCharge: "",
+    adresseDestination: "",
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: zodResolver(currentStep === 0 ? schemaContact1 : schemaContact2),
+  });
+
+  const onSubmit = (data: FormValues) => {
+    if (currentStep === 0) {
+      console.log("Passage du premier au deuxième étape");
+      console.log({ data });
+      // Mettre à jour les informations de base dans 'mail'
+      setMail((prevMail) => ({
+        ...prevMail,
+        nom: data.nom,
+        prenom: data.prenom,
+        email: data.email,
+        adresse: data.adresse,
+        phone: data.phone,
+      }));
+      setCurrentStep(1); // Passer à l'étape suivante
+    } else if (currentStep === 1) {
+      console.log("Soumission finale du formulaire");
+      console.log("Données soumises :", data);
+      // Mettre à jour les informations supplémentaires dans 'mail'
+      setMail((prevMail) => ({
+        ...prevMail,
+        service: data.service,
+        joursRdv: data.joursRdv,
+        heureRdv: data.heureRdv,
+        heurePriseEnCharge: data.heurePriseEnCharge,
+        adressePriseEnCharge: data.adressePriseEnCharge,
+        adresseDestination: data.adresseDestination,
+      }));
+      console.log(mail);
+      // Envoyer les données a a.btaxi
+    }
+  };
+
+  // Utiliser useEffect pour afficher les erreurs dans la console
+  useEffect(() => {
+    console.log("Form errors:", errors);
+    console.log("Current step:", currentStep);
+  }, [errors, currentStep]); // Déclencher useEffect à chaque fois que 'errors' change
+
+  const VosCoordonnees = () => (
+    <div className="flex flex-col xl:p-3">
+      <div className="py-4">
+        <p className="title text-gray-800 text-3xl font-bold">
+          Vos coordonnées
+        </p>
+      </div>
+      <div className="flex flex-col space-y-4">
+        <input
+          {...register("nom")}
+          placeholder="Nom"
+          className="p-2 border border-gray-300 rounded"
+        />
+        {errors.nom && (
+          <p className="text-red-500">
+            {(errors.nom as any)?.message || "Nom est requis"}
+          </p>
+        )}
+
+        <input
+          {...register("prenom")}
+          placeholder="Prénom"
+          className="p-2 border border-gray-300 rounded"
+        />
+        {errors.prenom && (
+          <p className="text-red-500">
+            {(errors.prenom as any)?.message || "Prénom est requis"}
+          </p>
+        )}
+
+        <input
+          {...register("email")}
+          type="email"
+          placeholder="Adresse mail"
+          className="p-2 border border-gray-300 rounded"
+        />
+        {errors.email && (
+          <p className="text-red-500">
+            {(errors.email as any)?.message || "Adresse mail invalide"}
+          </p>
+        )}
+
+        <input
+          {...register("adresse")}
+          placeholder="Adresse"
+          className="p-2 border border-gray-300 rounded"
+        />
+        {errors.adresse && (
+          <p className="text-red-500">
+            {(errors.adresse as any)?.message || "Adresse est requise"}
+          </p>
+        )}
+        <input
+          {...register("phone")}
+          type="tel" // Utilisez 'tel' pour les numéros de téléphone
+          placeholder="Votre numéro"
+          className="p-2 border border-gray-300 rounded"
+        />
+
+        {errors.adresse && (
+          <p className="text-red-500">
+            {(errors.adresse as any)?.message || "Un numéro est requis"}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+
+  const VotreTrajet = () => (
+    <div className="flex flex-col xl:p-3">
+      <div className="py-4">
+        <p className="title text-gray-800 text-3xl font-bold text-white">
+          Votre trajet
+        </p>
+      </div>
+      <div className="flex flex-col space-y-4">
+        <div className="flex flex-col items-center">
+          {" "}
+          {/* Utilisation de 'items-center' pour centrer verticalement le contenu */}
+          <div className="grid grid-cols-1 gap-4 rounded-lg bg-white p-5 inline-flex">
+            {[
+              "Trajet professionnel",
+              "Trajet aéroport / gare",
+              "Demande spéciale",
+              "Taxi conventionné 65%",
+              "Taxi conventionné 100%",
+              "Autre",
+            ].map((service) => (
+              <label key={service} className="block">
+                <input
+                  {...register("service")}
+                  type="radio"
+                  id={service}
+                  name="service"
+                  value={service}
+                  className="mr-2"
+                />
+                {service === "Taxi conventionné 65%"
+                  ? "Taxi conventionné 65%"
+                  : service === "Taxi conventionné 100%"
+                  ? "Taxi conventionné 100%"
+                  : service}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {errors.service && (
+          <p className="text-red-500">
+            {(errors.service as any)?.message || "Service est requis"}
+          </p>
+        )}
+
+        {/* Autres champs du formulaire */}
+        {/* Exemple d'autres champs */}
+        <span
+          className="text text-white underline"
+          style={{ marginTop: "40px" }}
+        >
+          Jours de prise en charge
+        </span>
+        <input
+          {...register("joursRdv")}
+          type="Date"
+          placeholder="Jours de prise en charge"
+          className="p-2 border border-gray-300 rounded"
+        />
+        {errors.heurePriseEnCharge && (
+          <p className="text-red-500">
+            {(errors.heurePriseEnCharge as any)?.message ||
+              "Jours de prise en charge est requis"}
+          </p>
+        )}
+        <span className="text text-white underline">
+          Heure de prise en charge
+        </span>
+        <input
+          {...register("heurePriseEnCharge")}
+          type="time"
+          placeholder="Heure de prise en charge"
+          className="p-2 border border-gray-300 rounded"
+        />
+        {errors.heurePriseEnCharge && (
+          <p className="text-red-500">
+            {(errors.heurePriseEnCharge as any)?.message ||
+              "Heure de prise en charge est requise"}
+          </p>
+        )}
+        <p className="text text-white underline ">Heure du RDV</p>
+        <input
+          {...register("heureRdv")}
+          type="time"
+          placeholder="Heure de RDV"
+          className="p-2 border border-gray-300 rounded"
+        />
+        {errors.heureRdv && (
+          <p className="text-red-500">
+            {(errors.heureRdv as any)?.message || "Heure de RDV est requise"}
+          </p>
+        )}
+        <p className="text text-white underline">Vôtre trajet</p>
+        <input
+          {...register("adressePriseEnCharge")}
+          placeholder="Adresse de prise en charge"
+          className="p-2 border border-gray-300 rounded"
+        />
+        {errors.adressePriseEnCharge && (
+          <p className="text-red-500">
+            {(errors.adressePriseEnCharge as any)?.message ||
+              "Adresse de prise en charge est requise"}
+          </p>
+        )}
+
+        <input
+          {...register("adresseDestination")}
+          placeholder="Adresse de destination"
+          className="p-2 border border-gray-300 rounded"
+        />
+        {errors.adresseDestination && (
+          <p className="text-red-500">
+            {(errors.adresseDestination as any)?.message ||
+              "Adresse de destination est requise"}
+          </p>
+        )}
+      </div>
+    </div>
+  );
 
   const steps = [
     {
@@ -43,15 +280,11 @@ const Block6 = () => {
       title: "Votre trajet",
       content: <VotreTrajet />,
     },
-    {
-      title: "Confirmation",
-      content: <Confirmation />,
-    },
   ];
 
   return (
-    <div className="w-full max-w-screen-xl mx-auto flex flex-col md:flex-col xl:flex-row xl:p-5">
-      <div className="flex-1 xl:mr-5">
+    <div className="w-full max-w-screen-xl mx-auto flex flex-col md:flex-col xl:flex-row xl:p-5 ">
+      <div className="flex-1 xl:mr-5 ">
         <div className="mb-4 md:mb-0 xl:p-5">
           <p className="title text-3xl font-bold underline">FORMULAIRE</p>
         </div>
@@ -65,8 +298,8 @@ const Block6 = () => {
             1. Demande de réservation
           </p>
           <p className="text text-gray-600 mt-2 px-2">
-            Transport événementiel, occasionnel, touristique, ou d affaires, n
-            hésitez pas à formuler vos demandes.
+            Transport événementiel, occasionnel, touristique, ou d&#39;affaires,
+            n&#39;hésitez pas à formuler vos demandes.
           </p>
           <div className="flex justify-around mt-4">
             <ResaButton />
@@ -74,51 +307,44 @@ const Block6 = () => {
           </div>
           <div className="mt-8">
             <p className="title text-2xl font-semibold">
-              2. Pas d argent à avancer
+              2. Pas d&#39;argent à avancer
             </p>
             <p className="text font-semibold text-gray-600 mt-2 px-2">
               Vous avez une prescription médicale de transport?
             </p>
             <p className="text text-gray-600 mt-1 px-2">
               Commandez un taxi conventionné qui vous fera bénéficier du tiers
-              payant. Vous ne faites pas l avance des frais de votre course. Ils
-              vous sont payés par la sécurité sociale.
+              payant. Vous ne faites pas l&#39;avance des frais de votre course.
+              Ils vous sont payés par la sécurité sociale.
             </p>
           </div>
           <div className="mt-8 mb-8">
             <p className="text-2xl font-semibold">3. Profitez</p>
             <p className="text-gray-600 mt-1 px-2">
-              C est le moment de vous détendre, profitez du confort de nos
-              véhicules et relaxez vous.
+              C&#39;est le moment de vous détendre, profitez du confort de nos
+              véhicules et relaxez-vous.
             </p>
           </div>
-        </div>
-
-        <div>
-          <Image
-            src="/test2.png"
-            width={500}
-            height={80}
-            alt="test2"
-            className="object-cover w-full h-full rounded-lg"
-          />
         </div>
       </div>
 
       {/* Second block image */}
-      <div className="mt-8 mx-auto xl:mt-0 xl:ml-5 xl:w-1/2 flex flex-col items-center">
-        <div className="w-full md:w-3/4 xl:w-full">
-          <ol className="flex items-center w-full text-sm font-medium text-center text-gray-500 dark:text-gray-400 sm:text-base">
+      <div className="mt-8 mx-auto xl:mt-0 xl:ml-5 xl:w-1/2 flex flex-col items-center justify-center rounded-lg bg-blue box-shadow p-5">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="w-full md:w-3/4 xl:w-full overflow-y-auto flex flex-col h-full"
+        >
+          <ol className="flex mx-auto justify-center items-center w-full text-sm font-medium text-center text-white dark:text-white sm:text-base">
             {steps.map((step, index) => (
               <li
                 key={index}
-                className={`flex md:w-full items-center ${
+                className={`flex items-center ${
                   index < steps.length - 1
                     ? "after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700"
                     : ""
                 } ${
                   index === currentStep
-                    ? "text-blue-600 dark:text-blue-500"
+                    ? "text-orange-600 dark:text-orange-500"
                     : ""
                 }`}
               >
@@ -139,36 +365,31 @@ const Block6 = () => {
               </li>
             ))}
           </ol>
-        </div>
 
-        <div className="mt-8 w-full md:w-3/4 xl:w-full">
-          {steps[currentStep].content}
-        </div>
+          <div className="mt-2 w-full">
+            {currentStep === 0 && <VosCoordonnees />}
+            {currentStep === 1 && <VotreTrajet />}
+          </div>
 
-        <div className="flex justify-between mt-4 w-full">
-          <button
-            className={`py-2 px-4 bg-gray-200 text-gray-800 rounded ${
-              currentStep === 0 ? "opacity-50 cursor-not-allowed" : ""
-            }`}
-            onClick={() => setCurrentStep((prev) => Math.max(prev - 1, 0))}
-            disabled={currentStep === 0}
-          >
-            Précédent
-          </button>
-          <button
-            className={`py-2 px-4 bg-blue-600 text-white rounded ${
-              currentStep === steps.length - 1
-                ? "opacity-50 cursor-not-allowed"
-                : ""
-            }`}
-            onClick={() =>
-              setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1))
-            }
-            disabled={currentStep === steps.length - 1}
-          >
-            Suivant
-          </button>
-        </div>
+          <div className="flex justify-between mt-4 w-full">
+            <button
+              type="button"
+              className={`py-2 px-4 bg-gray-200 text-gray-800 rounded ${
+                currentStep === 0 ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              onClick={() => setCurrentStep((prev) => Math.max(prev - 1, 0))}
+              disabled={currentStep === 0}
+            >
+              Précédent
+            </button>
+            <button
+              type="submit"
+              className={`py-2 px-4 bg-blue-600 text-white rounded `}
+            >
+              {currentStep === steps.length - 1 ? "Soumettre" : "Suivant"}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

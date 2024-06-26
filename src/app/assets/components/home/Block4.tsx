@@ -53,7 +53,7 @@ const Block4 = () => {
             >
               <button
                 onClick={() => handleClick2(index)}
-                className="w-full bg-gradient-to-r from-blue-800 to-blue-600 px-4 py-3 flex justify-between items-center text-left text-gray-700 hover:bg-gray-100 focus:outline-none relative rounded-t-lg" // Ajout de rounded-t-lg pour arrondir le haut
+                className="w-full bg-blue px-4 py-3 flex justify-between items-center text-left text-gray-700 hover:bg-gray-100 focus:outline-none relative rounded-t-lg" // Ajout de rounded-t-lg pour arrondir le haut
               >
                 <p className="title text-2xl font-bold relative text-white z-10">
                   {item.title}
