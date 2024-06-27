@@ -5,7 +5,7 @@ const resend = new Resend('re_Ju6UsAw3_9F2r4yhmSAknXwaMWZPJjbKz');
 
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   if (req.method === 'POST') {
-    const { emailData }: { emailData } = req.body;
+    const { emailData }: { emailData : any } = req.body;
 
     try {
       const response = await resend.emails.send(emailData);
