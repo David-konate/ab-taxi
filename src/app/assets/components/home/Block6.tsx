@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaContact1, schemaContact2 } from "@/app/lib/validation";
 import ResaButton from "../buttons/ResaButton";
 import ContactButtonNav from "../buttons/ContactButtonNav";
-import { Resend, CreateEmailOptions, CreateEmailRequestOptions } from "resend";
+import { Resend } from "resend";
 
 type FormValues = {
   nom: string;
@@ -21,8 +21,6 @@ type FormValues = {
 };
 
 const Block6 = () => {
-  const resend = new Resend("re_Ju6UsAw3_9F2r4yhmSAknXwaMWZPJjbKz");
-  console.log(resend);
   const [currentStep, setCurrentStep] = useState(0);
   const [mail, setMail] = useState<FormValues>({
     nom: "",
@@ -62,8 +60,8 @@ const Block6 = () => {
       };
       setMail(updatedMail);
 
-      const emailData: CreateEmailOptions = {
-        from: "da.konate@gmail.com",
+      const emailData = {
+        from: `${updatedMail.email} <onboarding@resend.dev>`,
         to: updatedMail.email,
         subject: "Demande de réservation de taxi",
         html: `
@@ -91,13 +89,20 @@ const Block6 = () => {
       };
 
       try {
-        const response = await resend.emails.send(emailData, {
+        const response = await fetch("/api/send", {
+          method: "POST",
           headers: {
-            Authorization: `Bearer re_Ju6UsAw3_9F2r4yhmSAknXwaMWZPJjbKz`,
+            "Content-Type": "application/json",
           },
-        } as CreateEmailRequestOptions);
+          body: JSON.stringify({ emailData }),
+        });
 
-        console.log("Email envoyé avec succès!", response);
+        if (!response.ok) {
+          throw new Error(`Erreur : ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log("Email envoyé avec succès!", result);
       } catch (err) {
         console.error("Erreur lors de l'envoi de l'email:", err);
       }
