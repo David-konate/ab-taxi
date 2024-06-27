@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schemaContact1, schemaContact2 } from "@/app/lib/validation";
 import ResaButton from "../buttons/ResaButton";
 import ContactButtonNav from "../buttons/ContactButtonNav";
-import { SubmitHandler } from "react-hook-form"; // Import SubmitHandler type
+import { Resend, CreateEmailOptions, CreateEmailRequestOptions } from "resend";
 
 type FormValues = {
   nom: string;
@@ -22,6 +21,8 @@ type FormValues = {
 };
 
 const Block6 = () => {
+  const resend = new Resend("re_Ju6UsAw3_9F2r4yhmSAknXwaMWZPJjbKz");
+  console.log(resend);
   const [currentStep, setCurrentStep] = useState(0);
   const [mail, setMail] = useState<FormValues>({
     nom: "",
@@ -40,48 +41,68 @@ const Block6 = () => {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(currentStep === 0 ? schemaContact1 : schemaContact2),
+    defaultValues: mail, // Initialiser les valeurs du formulaire avec l'état
   });
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
     if (currentStep === 0) {
-      console.log("Passage du premier au deuxième étape");
-      console.log({ data });
-      // Mettre à jour les informations de base dans 'mail'
       setMail((prevMail) => ({
         ...prevMail,
-        nom: data.nom,
-        prenom: data.prenom,
-        email: data.email,
-        adresse: data.adresse,
-        phone: data.phone,
+        ...data,
       }));
-      setCurrentStep(1); // Passer à l'étape suivante
+      setCurrentStep(1);
     } else if (currentStep === 1) {
-      console.log("Soumission finale du formulaire");
-      console.log("Données soumises :", data);
-      // Mettre à jour les informations supplémentaires dans 'mail'
-      setMail((prevMail) => ({
-        ...prevMail,
-        service: data.service,
-        joursRdv: data.joursRdv,
-        heureRdv: data.heureRdv,
-        heurePriseEnCharge: data.heurePriseEnCharge,
-        adressePriseEnCharge: data.adressePriseEnCharge,
-        adresseDestination: data.adresseDestination,
-      }));
-      console.log(mail);
-      // Envoyer les données a a.btaxi
+      const updatedMail = {
+        ...mail,
+        ...data,
+      };
+      setMail(updatedMail);
+
+      const emailData: CreateEmailOptions = {
+        from: "da.konate@gmail.com",
+        to: updatedMail.email,
+        subject: "Demande de réservation de taxi",
+        html: `
+          <p>Bonjour,</p>
+          <p>Vous avez effectué une demande de réservation de taxi sur AB-TAXI.</p>
+          <p>Vos coordonnées : </p>
+          <ul>
+            <li>Nom : ${updatedMail.nom}</li>
+            <li>Prénom : ${updatedMail.prenom}</li>
+            <li>Email : ${updatedMail.email}</li>
+            <li>Adresse : ${updatedMail.adresse}</li>
+            <li>Téléphone : ${updatedMail.phone}</li>
+          </ul>
+          <p>Vos informations de trajet : </p>
+          <ul>
+            <li>Service : ${updatedMail.service}</li>
+            <li>Jours de prise en charge : ${updatedMail.joursRdv}</li>
+            <li>Heure de prise en charge : ${updatedMail.heurePriseEnCharge}</li>
+            <li>Adresse de prise en charge : ${updatedMail.adressePriseEnCharge}</li>
+            <li>Adresse de destination : ${updatedMail.adresseDestination}</li>
+          </ul>
+          <p>Cordialement,</p>
+          <p>L'équipe AB-Taxi</p>
+        `,
+      };
+
+      try {
+        const response = await resend.emails.send(emailData, {
+          headers: {
+            Authorization: `Bearer re_Ju6UsAw3_9F2r4yhmSAknXwaMWZPJjbKz`,
+          },
+        } as CreateEmailRequestOptions);
+
+        console.log("Email envoyé avec succès!", response);
+      } catch (err) {
+        console.error("Erreur lors de l'envoi de l'email:", err);
+      }
     }
   };
-
-  // Utiliser useEffect pour afficher les erreurs dans la console
-  useEffect(() => {
-    console.log("Form errors:", errors);
-    console.log("Current step:", currentStep);
-  }, [errors, currentStep]); // Déclencher useEffect à chaque fois que 'errors' change
 
   const VosCoordonnees = () => (
     <div className="flex flex-col xl:p-3">
@@ -142,9 +163,9 @@ const Block6 = () => {
           className="p-2 border border-gray-300 rounded"
         />
 
-        {errors.adresse && (
+        {errors.phone && (
           <p className="text-red-500">
-            {(errors.adresse as any)?.message || "Un numéro est requis"}
+            {(errors.phone as any)?.message || "Un numéro est requis"}
           </p>
         )}
       </div>
@@ -206,13 +227,13 @@ const Block6 = () => {
         </span>
         <input
           {...register("joursRdv")}
-          type="Date"
+          type="date"
           placeholder="Jours de prise en charge"
           className="p-2 border border-gray-300 rounded"
         />
-        {errors.heurePriseEnCharge && (
+        {errors.joursRdv && (
           <p className="text-red-500">
-            {(errors.heurePriseEnCharge as any)?.message ||
+            {(errors.joursRdv as any)?.message ||
               "Jours de prise en charge est requis"}
           </p>
         )}
@@ -243,7 +264,7 @@ const Block6 = () => {
             {(errors.heureRdv as any)?.message || "Heure de RDV est requise"}
           </p>
         )}
-        <p className="text text-white underline">Vôtre trajet</p>
+        <p className="text text-white underline">Votre trajet</p>
         <input
           {...register("adressePriseEnCharge")}
           placeholder="Adresse de prise en charge"
