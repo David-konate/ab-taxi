@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { schemaContact1, schemaContact2 } from "@/app/lib/validation";
+import {
+  schemaContact1,
+  schemaContact2,
+  schemaContact3,
+} from "@/app/lib/validation";
 import ResaButton from "../buttons/ResaButton";
 import ContactButtonNav from "../buttons/ContactButtonNav";
-import { Resend } from "resend";
 
 type FormValues = {
   nom: string;
@@ -16,8 +19,14 @@ type FormValues = {
   heureRdv: string;
   joursRdv: string;
   heurePriseEnCharge: string;
-  adressePriseEnCharge: string;
-  adresseDestination: string;
+  numeroPriseEnCharge: string;
+  ruePriseEnCharge: string;
+  codePostalPriseEnCharge: string;
+  villePriseEnCharge: string;
+  numeroDestination: string;
+  rueDestination: string;
+  codePostalDestination: string;
+  villeDestination: string;
 };
 
 const Block6 = () => {
@@ -32,8 +41,14 @@ const Block6 = () => {
     joursRdv: "",
     heureRdv: "",
     heurePriseEnCharge: "",
-    adressePriseEnCharge: "",
-    adresseDestination: "",
+    numeroPriseEnCharge: "",
+    ruePriseEnCharge: "",
+    codePostalPriseEnCharge: "",
+    villePriseEnCharge: "",
+    numeroDestination: "",
+    rueDestination: "",
+    codePostalDestination: "",
+    villeDestination: "",
   });
 
   const {
@@ -42,18 +57,24 @@ const Block6 = () => {
     setValue,
     formState: { errors },
   } = useForm<FormValues>({
-    resolver: zodResolver(currentStep === 0 ? schemaContact1 : schemaContact2),
+    resolver: zodResolver(
+      currentStep === 0
+        ? schemaContact1
+        : currentStep === 1
+        ? schemaContact2
+        : schemaContact3
+    ),
     defaultValues: mail, // Initialiser les valeurs du formulaire avec l'état
   });
 
   const onSubmit = async (data: FormValues) => {
-    if (currentStep === 0) {
+    if (currentStep < steps.length - 1) {
       setMail((prevMail) => ({
         ...prevMail,
         ...data,
       }));
-      setCurrentStep(1);
-    } else if (currentStep === 1) {
+      setCurrentStep(currentStep + 1);
+    } else if (currentStep === steps.length - 1) {
       const updatedMail = {
         ...mail,
         ...data,
@@ -61,32 +82,57 @@ const Block6 = () => {
       setMail(updatedMail);
 
       const emailData = {
-        from: `${updatedMail.email} <onboarding@resend.dev>`,
-        to: updatedMail.email,
-        subject: "Demande de réservation de taxi",
+        from: `a.btaxiservice77@gmail.com <onboarding@resend.dev>`,
+        to: "a.btaxiservice77@gmail.com",
+        subject: `Demande de réservation de taxi par ${updatedMail.email}`,
         html: `
-          <p>Bonjour,</p>
-          <p>Vous avez effectué une demande de réservation de taxi sur AB-TAXI.</p>
-          <p>Vos coordonnées : </p>
-          <ul>
-            <li>Nom : ${updatedMail.nom}</li>
-            <li>Prénom : ${updatedMail.prenom}</li>
-            <li>Email : ${updatedMail.email}</li>
-            <li>Adresse : ${updatedMail.adresse}</li>
-            <li>Téléphone : ${updatedMail.phone}</li>
-          </ul>
-          <p>Vos informations de trajet : </p>
-          <ul>
-            <li>Service : ${updatedMail.service}</li>
-            <li>Jours de prise en charge : ${updatedMail.joursRdv}</li>
-            <li>Heure de prise en charge : ${updatedMail.heurePriseEnCharge}</li>
-            <li>Adresse de prise en charge : ${updatedMail.adressePriseEnCharge}</li>
-            <li>Adresse de destination : ${updatedMail.adresseDestination}</li>
-          </ul>
-          <p>Cordialement,</p>
-          <p>L'équipe AB-Taxi</p>
+          <div class="p-4">
+            <p class="text-lg font-bold text-blue-500">
+              ${updatedMail.service} - Réservation de taxi 
+            </p>
+          
+            <p class="font-bold">Coordonnées :</p>
+            <ul class="list-disc">
+              <li class="text-base">Nom : ${updatedMail.nom}</li>
+              <li class="text-base">Prénom : ${updatedMail.prenom}</li>
+              <li class="text-base">Email : ${updatedMail.email}</li>
+              <li class="text-base">Adresse : ${updatedMail.adresse}</li>
+              <li class="text-base">Téléphone : ${updatedMail.phone}</li>
+            </ul>
+            <p class="font-bold">Informations de trajet :</p>
+            <ul class="list-disc">
+              <li class="text-base">Service : ${updatedMail.service}</li>
+              <li class="text-base">
+                Jours de prise en charge : ${updatedMail.joursRdv}
+              </li>
+              <li class="text-base">
+                Heure de prise en charge : ${updatedMail.heurePriseEnCharge}
+              </li>
+              <li class="text-base">Adresse de prise en charge :</li>
+              <ul class="list-disc pl-5">
+                <li class="text-base">Numéro : ${updatedMail.numeroPriseEnCharge}</li>
+                <li class="text-base">Rue : ${updatedMail.ruePriseEnCharge}</li>
+                <li class="text-base">
+                  Code postal : ${updatedMail.codePostalPriseEnCharge}
+                </li>
+                <li class="text-base">Ville : ${updatedMail.villePriseEnCharge}</li>
+              </ul>
+              <li class="text-base">Adresse de destination :</li>
+              <ul class="list-disc pl-5">
+                <li class="text-base">Numéro : ${updatedMail.numeroDestination}</li>
+                <li class="text-base">Rue : ${updatedMail.rueDestination}</li>
+                <li class="text-base">
+                  Code postal : ${updatedMail.codePostalDestination}
+                </li>
+                <li class="text-base">Ville : ${updatedMail.villeDestination}</li>
+              </ul>
+            </ul>
+          </div>
         `,
       };
+
+      // Remplacez 'votreNomChauffeur' par le nom de votre client chauffeur de taxi
+      // Remplacez '{votreNumeroTelephone}' par le numéro de téléphone de votre client chauffeur de taxi
 
       try {
         const response = await fetch("/api/send", {
@@ -151,16 +197,6 @@ const Block6 = () => {
           </p>
         )}
 
-        <input
-          {...register("adresse")}
-          placeholder="Adresse"
-          className="p-2 border border-gray-300 rounded"
-        />
-        {errors.adresse && (
-          <p className="text-red-500">
-            {(errors.adresse as any)?.message || "Adresse est requise"}
-          </p>
-        )}
         <input
           {...register("phone")}
           type="tel" // Utilisez 'tel' pour les numéros de téléphone
@@ -269,30 +305,138 @@ const Block6 = () => {
             {(errors.heureRdv as any)?.message || "Heure de RDV est requise"}
           </p>
         )}
-        <p className="text text-white underline">Votre trajet</p>
-        <input
-          {...register("adressePriseEnCharge")}
-          placeholder="Adresse de prise en charge"
-          className="p-2 border border-gray-300 rounded"
-        />
-        {errors.adressePriseEnCharge && (
-          <p className="text-red-500">
-            {(errors.adressePriseEnCharge as any)?.message ||
-              "Adresse de prise en charge est requise"}
-          </p>
-        )}
+      </div>
+    </div>
+  );
 
-        <input
-          {...register("adresseDestination")}
-          placeholder="Adresse de destination"
-          className="p-2 border border-gray-300 rounded"
-        />
-        {errors.adresseDestination && (
-          <p className="text-red-500">
-            {(errors.adresseDestination as any)?.message ||
-              "Adresse de destination est requise"}
-          </p>
-        )}
+  const VotrePrise = () => (
+    <div className="flex flex-col xl:p-3 w-full">
+      <div className="py-4">
+        <p className="title text-gray-800 text-3xl font-bold text-white">
+          Prise en charge et Destination
+        </p>
+      </div>
+      <div className="flex flex-col space-y-4 w-full">
+        <div className="flex flex-col items-center">
+          <div className="grid grid-cols-1 gap-4 rounded-lg bg-white p-5 w-full">
+            <span className="text-gray-800 text-xl font-bold w-full">
+              Lieu de prise en charge
+            </span>
+            <label className="block w-full">
+              <input
+                {...register("numeroPriseEnCharge")}
+                type="number"
+                placeholder="Numéro"
+                className="p-2 border border-gray-300 rounded w-full"
+              />
+              {errors.numeroPriseEnCharge && (
+                <p className="text-red-500">
+                  {errors.numeroPriseEnCharge?.message || "Numéro requis"}
+                </p>
+              )}
+            </label>
+            <label className="block w-full">
+              <input
+                {...register("ruePriseEnCharge")}
+                type="text"
+                placeholder="Voie"
+                className="p-2 border border-gray-300 rounded w-full"
+              />
+              {errors.ruePriseEnCharge && (
+                <p className="text-red-500">
+                  {errors.ruePriseEnCharge?.message || "Rue requise"}
+                </p>
+              )}
+            </label>
+            <label className="block w-full">
+              <input
+                {...register("codePostalPriseEnCharge")}
+                type="text"
+                placeholder="Code postal"
+                className="p-2 border border-gray-300 rounded w-full"
+              />
+              {errors.codePostalPriseEnCharge && (
+                <p className="text-red-500">
+                  {errors.codePostalPriseEnCharge?.message ||
+                    "Code postal requis"}
+                </p>
+              )}
+            </label>
+            <label className="block w-full">
+              <input
+                {...register("villePriseEnCharge")}
+                type="text"
+                placeholder="Ville"
+                className="p-2 border border-gray-300 rounded w-full"
+              />
+              {errors.villePriseEnCharge && (
+                <p className="text-red-500">
+                  {errors.villePriseEnCharge?.message || "Ville requise"}
+                </p>
+              )}
+            </label>
+          </div>
+        </div>
+        <div className="flex flex-col items-center">
+          <div className="grid grid-cols-1 gap-4 rounded-lg bg-white p-5 w-full">
+            <span className="text-gray-800 text-xl font-bold w-full">
+              Lieu de destination
+            </span>
+            <label className="block w-full">
+              <input
+                {...register("numeroDestination")}
+                type="number"
+                placeholder="Numéro"
+                className="p-2 border border-gray-300 rounded w-full"
+              />
+              {errors.numeroDestination && (
+                <p className="text-red-500">
+                  {errors.numeroDestination?.message || "Numéro requis"}
+                </p>
+              )}
+            </label>
+            <label className="block w-full">
+              <input
+                {...register("rueDestination")}
+                type="text"
+                placeholder="Voie"
+                className="p-2 border border-gray-300 rounded w-full"
+              />
+              {errors.rueDestination && (
+                <p className="text-red-500">
+                  {errors.rueDestination?.message || "Rue requise"}
+                </p>
+              )}
+            </label>
+            <label className="block w-full">
+              <input
+                {...register("codePostalDestination")}
+                type="text"
+                placeholder="Code postal"
+                className="p-2 border border-gray-300 rounded w-full"
+              />
+              {errors.codePostalDestination && (
+                <p className="text-red-500">
+                  {errors.codePostalDestination?.message ||
+                    "Code postal requis"}
+                </p>
+              )}
+            </label>
+            <label className="block w-full">
+              <input
+                {...register("villeDestination")}
+                type="text"
+                placeholder="Ville"
+                className="p-2 border border-gray-300 rounded w-full"
+              />
+              {errors.villeDestination && (
+                <p className="text-red-500">
+                  {errors.villeDestination?.message || "Ville requise"}
+                </p>
+              )}
+            </label>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -305,6 +449,10 @@ const Block6 = () => {
     {
       title: "Votre trajet",
       content: <VotreTrajet />,
+    },
+    {
+      title: "Prise en charge",
+      content: <VotrePrise />,
     },
   ];
 
@@ -355,10 +503,13 @@ const Block6 = () => {
       </div>
 
       {/* Second block image */}
-      <div className="mt-8 mx-auto xl:mt-0 xl:ml-5 xl:w-1/2 flex flex-col items-center justify-center rounded-lg bg-blue box-shadow p-5">
+      <div
+        className="mt-8 mx-auto xl:mt-0 xl:ml-5 xl:w-1/2 w-4/5  
+       flex flex-col items-center justify-center rounded-lg bg-blue box-shadow p-5"
+      >
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full md:w-3/4 xl:w-full overflow-y-auto flex flex-col h-full"
+          className="w-full  xl:w-full overflow-y-auto flex flex-col h-full"
         >
           <ol className="flex mx-auto justify-center items-center w-full text-sm font-medium text-center text-white dark:text-white sm:text-base">
             {steps.map((step, index) => (
@@ -395,6 +546,7 @@ const Block6 = () => {
           <div className="mt-2 w-full">
             {currentStep === 0 && <VosCoordonnees />}
             {currentStep === 1 && <VotreTrajet />}
+            {currentStep === 2 && <VotrePrise />}
           </div>
 
           <div className="flex justify-between mt-4 w-full">

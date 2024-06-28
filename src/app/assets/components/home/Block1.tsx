@@ -21,7 +21,7 @@ const Block1 = () => {
             className="title text-3xl font-bold underline"
             style={{ color: "white" }}
           >
-            AB - TAXI
+            Taxis conventionnés VSL et transports de santé agréés
           </p>
         </div>
         <div className="flex flex-col md:flex-row items-center justify-center xl:p-3">
@@ -40,7 +40,7 @@ const Block1 = () => {
             {trajets.map((trajet, index) => (
               <div key={index} className="flex items-center mb-2">
                 <Image
-                  src={`/${trajet.src}`}
+                  src="/check.svg"
                   width={20}
                   height={20}
                   alt={`Check icon for ${trajet.content}`}

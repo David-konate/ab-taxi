@@ -13,9 +13,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <title>AB Taxi</title>
         <meta
           name="AB Taxi"
-          content="AB Taxi, nous assurons des trajets vers les aéroports, les gares et les transports de santé CPAM.
-
-"
+          content="AB Taxi : transport aéroport, gare et CPAM. Taxis conventionnés VSL et transports de santé agréés. Paris et région parisienne. 24 heures sur 24, 7 jours sur 7. Réservez votre taxi dès maintenant et profitez de nos tarifs compétitifs. Obtenez un devis gratuit."
         />
         <link
           rel="stylesheet"
