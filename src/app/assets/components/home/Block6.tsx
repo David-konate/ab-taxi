@@ -603,7 +603,7 @@ const Block6 = () => {
           <div className="flex justify-between mt-4 w-full">
             <button
               type="button"
-              className={`py-2 px-4 bg-gray-200 text-gray-800 rounded ${
+              className={`py-2 px-4 bg-white text-gray-800 rounded ${
                 currentStep === 0 ? "opacity-50 cursor-not-allowed" : ""
               }`}
               onClick={() => setCurrentStep((prev) => Math.max(prev - 1, 0))}
