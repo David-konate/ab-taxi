@@ -511,10 +511,11 @@ const Block6 = () => {
         <div className="mb-4 md:mb-0 xl:p-5">
           <p className="title text-3xl font-bold underline">FORMULAIRE</p>
         </div>
-        {/* Second block image */}
+        {/*  block formulaire */}
         <div
           className="mt-8 mx-auto xl:mt-0 xl:ml-5 xl:w-1/2 w-full  
        flex flex-col items-center justify-center rounded-lg bg-blue-100 box-shadow p-5"
+          style={{ boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)" }}
         >
           <form
             onSubmit={handleSubmit(onSubmit)}
