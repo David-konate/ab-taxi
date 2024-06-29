@@ -3,9 +3,9 @@ import { useEffect } from "react";
 
 const Footer = () => {
   const handleReservationClick = () => {
-    const reservationElement = document.getElementById("block6");
-    if (reservationElement) {
-      reservationElement.scrollIntoView({ behavior: "smooth" });
+    const block6Element = document.getElementById("block6");
+    if (block6Element) {
+      block6Element.scrollIntoView({ behavior: "smooth" });
     }
   };
 

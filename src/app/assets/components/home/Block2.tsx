@@ -63,7 +63,7 @@ const Block2 = () => {
                 <p className="text-gray-700 font-bold mt-3">
                   {service.description}
                 </p>
-                <div className="flex items-center justify-end w-full mt-">
+                <div className="flex items-center justify-end w-full mt-5">
                   <ResaButton2 />
                 </div>
               </div>

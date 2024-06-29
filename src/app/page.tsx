@@ -28,7 +28,7 @@ const Home = () => {
       >
         <Block3 />
       </div>
-      <div className="p-5">
+      <div id="block6" className="block6 p-5">
         <Block6 />
       </div>
       <div className="p-5">
