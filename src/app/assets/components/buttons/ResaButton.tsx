@@ -1,14 +1,14 @@
-"use client"; // Add this line
+"use client";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
 
 const ResaButton = () => {
   const handleResaClick = () => {
-    window.open(
-      "https://docs.google.com/forms/d/e/1FAIpQLSdKIJ7RonbJJrn4gi_Sa5b-f-b7YRrXh6EBgLpbTGhWpx8Zug/viewform",
-      "_blank",
-      "noopener,noreferrer"
-    );
+    const block6Element = document.getElementById("block6");
+    if (block6Element) {
+      block6Element.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (

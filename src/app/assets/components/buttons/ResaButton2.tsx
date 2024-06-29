@@ -4,17 +4,16 @@ import React from "react";
 
 const ResaButton2 = () => {
   const handleResaClick = () => {
-    window.open(
-      "https://docs.google.com/forms/d/e/1FAIpQLSdKIJ7RonbJJrn4gi_Sa5b-f-b7YRrXh6EBgLpbTGhWpx8Zug/viewform",
-      "_blank",
-      "noopener,noreferrer"
-    );
+    const block6Element = document.getElementById("block6");
+    if (block6Element) {
+      block6Element.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
     <div>
       <button
-        className="button-resa  rounded-full bg-transparent focus:outline-none = hover:bg-gradient-to-r from-blue-300 to-blue-350 p-2"
+        className="button-resa p-2 flex items-center custom-button rounded-full"
         onClick={handleResaClick}
       >
         <Image

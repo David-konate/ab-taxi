@@ -8,6 +8,8 @@ import {
 } from "@/app/lib/validation";
 import ResaButton from "../buttons/ResaButton";
 import ContactButtonNav from "../buttons/ContactButtonNav";
+import informationDiaolog from "../messages/informationDiaolog";
+import InformationDiaolog from "../messages/informationDiaolog";
 
 type FormValues = {
   nom: string;
@@ -30,6 +32,13 @@ type FormValues = {
 };
 
 const Block6 = () => {
+  const [dialog, setDialog] = useState<{
+    title: string;
+    message: string;
+    isError?: boolean;
+  } | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const [currentStep, setCurrentStep] = useState(0);
   const [mail, setMail] = useState<FormValues>({
     nom: "",
@@ -54,6 +63,7 @@ const Block6 = () => {
   const {
     register,
     handleSubmit,
+    reset,
     setValue,
     formState: { errors },
   } = useForm<FormValues>({
@@ -67,7 +77,24 @@ const Block6 = () => {
     defaultValues: mail, // Initialiser les valeurs du formulaire avec l'état
   });
 
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+
   const onSubmit = async (data: FormValues) => {
+    const formatDate = (dateString: any) => {
+      const date = new Date(dateString);
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    };
+
+    // Formater la date avant de continuer
+    if (data.joursRdv) {
+      data.joursRdv = formatDate(data.joursRdv);
+    }
+
     if (currentStep < steps.length - 1) {
       setMail((prevMail) => ({
         ...prevMail,
@@ -96,7 +123,6 @@ const Block6 = () => {
               <li class="text-base">Nom : ${updatedMail.nom}</li>
               <li class="text-base">Prénom : ${updatedMail.prenom}</li>
               <li class="text-base">Email : ${updatedMail.email}</li>
-              <li class="text-base">Adresse : ${updatedMail.adresse}</li>
               <li class="text-base">Téléphone : ${updatedMail.phone}</li>
             </ul>
             <p class="font-bold">Informations de trajet :</p>
@@ -107,6 +133,9 @@ const Block6 = () => {
               </li>
               <li class="text-base">
                 Heure de prise en charge : ${updatedMail.heurePriseEnCharge}
+              </li>
+              <li class="text-base">
+                Heure du RDV : ${updatedMail.heureRdv}
               </li>
               <li class="text-base">Adresse de prise en charge :</li>
               <ul class="list-disc pl-5">
@@ -131,9 +160,6 @@ const Block6 = () => {
         `,
       };
 
-      // Remplacez 'votreNomChauffeur' par le nom de votre client chauffeur de taxi
-      // Remplacez '{votreNumeroTelephone}' par le numéro de téléphone de votre client chauffeur de taxi
-
       try {
         const response = await fetch("/api/send", {
           method: "POST",
@@ -149,8 +175,20 @@ const Block6 = () => {
 
         const result = await response.json();
         console.log("Email envoyé avec succès!", result);
+        setDialog({ title: "Succès", message: "Email envoyé avec succès!" });
+        setIsDialogOpen(true);
+
+        // Réinitialiser le formulaire et remettre currentStep à 0
+        reset(); // Réinitialise les champs du formulaire
+        setCurrentStep(0); // Remet l'étape actuelle à 0
       } catch (err) {
         console.error("Erreur lors de l'envoi de l'email:", err);
+        setDialog({
+          title: "Erreur",
+          message: `Erreur lors de l'envoi de l'email. / ${err}`,
+          isError: true,
+        });
+        setIsDialogOpen(true);
       }
     }
   };
@@ -458,6 +496,15 @@ const Block6 = () => {
 
   return (
     <div className="w-full max-w-screen-xl mx-auto flex flex-col md:flex-col xl:flex-row xl:p-5 ">
+      {dialog && (
+        <InformationDiaolog
+          title={dialog.title}
+          message={dialog.message}
+          isError={dialog.isError}
+          isOpen={isDialogOpen}
+          onClose={handleCloseDialog}
+        />
+      )}
       <div className="flex-1 xl:mr-5 ">
         <div className="mb-4 md:mb-0 xl:p-5">
           <p className="title text-3xl font-bold underline">FORMULAIRE</p>

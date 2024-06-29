@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.scss";
 import Head from "next/head";
 import NavBar from "./assets/components/NavBar";
+import Footer from "./assets/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] }); // Uncomment to use Inter font
 
@@ -12,14 +13,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <Head>
         <title>AB Taxi</title>
         <meta
-          name="AB Taxi"
-          content="AB Taxi : transport aéroport, gare et CPAM. Taxis conventionnés VSL et transports de santé agréés. Paris et région parisienne. 24 heures sur 24, 7 jours sur 7. Réservez votre taxi dès maintenant et profitez de nos tarifs compétitifs. Obtenez un devis gratuit."
+          name="AB-Taxi, taxi conventionnés VSL et transports de santé agréés"
+          content="AB Taxi : transport aéroport, gare et CPAM. Taxis conventionnés VSL et transports de santé agréés. Paris et région parisienne. 24 heures sur 24, 7 jours sur 7. Réservez votre taxi conventionnés VSL et transports de santé agréés dès maintenant et profitez de nos tarifs compétitifs. Obtenez un devis gratuit."
         />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
-          as="style"
-        />{" "}
+
         {/* Load Inter font */}
         {/* Add other meta tags and links as needed */}
       </Head>
@@ -32,6 +29,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           defer
           src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyDrH0Iv4IqmewW-ImT72ryU2UBytKZtWe0&libraries=&callback=initMap`}
         ></script>
+        <Footer />
       </body>
     </html>
   );
