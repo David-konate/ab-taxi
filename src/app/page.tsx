@@ -11,7 +11,7 @@ import Footer from "./assets/components/Footer";
 const Home = () => {
   return (
     <div className="w-full  absolute left-0">
-      <div className=" block1 p-2 sm:p-5">
+      <div className=" block1 p-4">
         <Block1 />
       </div>
       <div className="p-2 sm:p-5">
@@ -28,10 +28,10 @@ const Home = () => {
       >
         <Block3 />
       </div>
-      <div className="p-2 sm:p-5">
+      <div className="p-5">
         <Block6 />
       </div>
-      <div className="p-2 sm:p-5">
+      <div className="p-5">
         <Block4 />
       </div>
       <div className="p-2 sm:p-5">
