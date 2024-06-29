@@ -43,9 +43,10 @@ const Block1 = () => {
                   src="/check.svg"
                   width={20}
                   height={20}
-                  alt={`Check icon for ${trajet.content}`}
+                  alt={`Icône de validation pour ${trajet.content}, AB Taxi : transport aéroport, gare et CPAM. Taxis conventionnés VSL et transports de santé agréés.`}
                   className="image-vital mr-2"
                 />
+
                 <p className="text" style={{ color: "white" }}>
                   {trajet.content}
                 </p>

@@ -14,8 +14,8 @@ const Home = () => {
       <div className=" block1 p-4">
         <Block1 />
       </div>
-      <div className="p-2 sm:p-5">
-        <Block2 />
+      <div id="block6" className="block6 p-5">
+        <Block6 />
       </div>
       <div
         className="p-2 sm:p-5"
@@ -28,15 +28,14 @@ const Home = () => {
       >
         <Block3 />
       </div>
-      <div id="block6" className="block6 p-5">
-        <Block6 />
+      <div className="p-2 sm:p-5">
+        <Block2 />
       </div>
+
       <div className="p-5">
         <Block4 />
       </div>
-      <div className="p-2 sm:p-5">
-        <Block5 />
-      </div>
+      <div className="p-2 sm:p-5">{/* <Block5 /> */}</div>
       <div className="absolute mt-8 w-full left-0">
         <Footer />
       </div>
