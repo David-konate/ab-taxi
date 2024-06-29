@@ -13,7 +13,7 @@ const Block1 = () => {
   ];
 
   return (
-    <div className="w-full max-w-screen-xl mx-auto flex flex-col md:flex-col xl:flex-row xl:p-5">
+    <div className="w-full max-w-screen-xl mx-auto flex flex-col md:flex-col xl:flex-row xl:p-5 ">
       <div className="flex-1 xl:mr-5">
         {/* Textual content */}
         <div className="mb-4 md:mb-0 xl:p-5">

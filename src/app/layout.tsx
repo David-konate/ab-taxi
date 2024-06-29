@@ -1,15 +1,14 @@
-import type { Metadata } from "next";
+"use client";
 import { Inter } from "next/font/google";
 import "./globals.scss";
 import Head from "next/head";
 import NavBar from "./assets/components/NavBar";
-import Footer from "./assets/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] }); // Uncomment to use Inter font
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="fr">
+    <html lang="fr" className="min-h-screen">
       <Head>
         <title>AB Taxi</title>
         <meta
@@ -29,7 +28,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           defer
           src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyDrH0Iv4IqmewW-ImT72ryU2UBytKZtWe0&libraries=&callback=initMap`}
         ></script>
-        <Footer />
       </body>
     </html>
   );

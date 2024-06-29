@@ -6,6 +6,7 @@ import Block3 from "./assets/components/home/Block3";
 import Block4 from "./assets/components/home/Block4";
 import Block5 from "./assets/components/home/Block5";
 import Block6 from "./assets/components/home/Block6";
+import Footer from "./assets/components/Footer";
 
 const Home = () => {
   return (
@@ -27,7 +28,7 @@ const Home = () => {
       >
         <Block3 />
       </div>
-      <div id="block6" className="p-2 sm:p-5">
+      <div className="p-2 sm:p-5">
         <Block6 />
       </div>
       <div className="p-2 sm:p-5">
@@ -35,6 +36,9 @@ const Home = () => {
       </div>
       <div className="p-2 sm:p-5">
         <Block5 />
+      </div>
+      <div className="absolute mt-8 w-full left-0">
+        <Footer />
       </div>
     </div>
   );
