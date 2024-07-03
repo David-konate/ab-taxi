@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /about/
+Allow: /blog/
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.gif$
+Disallow: /admin/
+Disallow: /_next/
+Disallow: /tmp/
+Disallow: /*.js$
+Disallow: /*.json$
+Sitemap: https://ab-taxi.vercel.app//sitemap.xml
