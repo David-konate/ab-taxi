@@ -35,7 +35,8 @@ const MentionsLegales = () => {
                 <br />
                 <strong>SIRET (Si&#232;ge):</strong> 980 442 594 00019
                 <br />
-                <strong>Num&#233;ro TVA intracommunautaire:</strong> ????????
+                <strong>Num&#233;ro TVA intracommunautaire:</strong>{" "}
+                FR92980442594
                 <br />
                 <strong>Date d&#8217;immatriculation:</strong> 01/01/2024
                 <br />
@@ -51,9 +52,9 @@ const MentionsLegales = () => {
                 <strong>Email:</strong> a.btaxiservice77@gmail.com
                 <br />
                 <strong>Forme juridique:</strong> Soci&#233;t&#233; par actions
-                simplifi&#233;e
+                simplifi&#233;e unipersonnelle
                 <br />
-                <strong>Capital social:</strong> ???,00 Euros
+                <strong>Capital social:</strong> 300,00 Euros
                 <br />
                 <strong>Adresse de l&#8217;&#233;tablissement:</strong> 13 Rue
                 Pierre Curie 77120 Coulommiers
