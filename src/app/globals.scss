@@ -3,14 +3,14 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 /* Importation des polices */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Noto+Sans:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Noto+Sans:wght@400&display=swap");
 
 /* Variables pour les couleurs et le thème sombre */
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --font-title: "Poppins", sans-serif; /* Poppins gras pour les titres */
+  --font-title: "Merriweather", sans-serif; /* Poppins gras pour les titres */
   --font-text: "Noto Sans", sans-serif; /* Noto Sans normal pour le corps de texte */
 }
 
@@ -33,7 +33,12 @@
 .image-text-container {
   display: flex;
 }
-
+.title {
+  font-family: var(--font-title);
+}
+.text {
+  font-family: var(--font-text);
+}
 /* Bloc stylisé */
 .block1 {
   background: linear-gradient(

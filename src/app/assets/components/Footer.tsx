@@ -54,16 +54,6 @@ const Footer = () => {
               Contact
             </a>
           </li>
-          <li>
-            <a
-              href="/#"
-              id="reservation-link"
-              className="hover:underline me-4 lg:me-6 text-white"
-              onClick={handleReservationClick}
-            >
-              Réserver
-            </a>
-          </li>
         </ul>
       </div>
     </footer>
