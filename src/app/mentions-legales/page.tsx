@@ -68,11 +68,12 @@ const MentionsLegales = () => {
                 <strong>Soci&#233;t&#233;:</strong> Vercel
                 <br />
                 <strong>Adresse:</strong>{" "}
-                ab-taxi-test-bu9slby4p-david-konates-projects.vercel.app
+                https://ab-taxi-678a4bx7m-david-konates-projects.vercel.app
                 <br />
-                <strong>Nom de domaine:</strong> Ionos by 1&1
+                <strong>Nom de domaine:</strong> OVH
                 <br />
-                <strong>Adresse:</strong> 7 Place De La Gare 57200 Sarreguemines
+                <strong>Adresse:</strong> 2 Rue Kellermann, 59100 Roubaix,
+                France
               </p>
             </div>
           </div>
