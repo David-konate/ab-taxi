@@ -4,7 +4,7 @@ import Image from "next/image";
 const Block4 = () => {
   const [openIndex, setOpenIndex] = useState(null);
 
-  const handleClick2 = (index) => {
+  const handleClick2 = (index: any) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
@@ -37,7 +37,7 @@ const Block4 = () => {
       <div className="w-full sm:w-1/2 mx-auto sm:text-left mb-5">
         <div className="mb-4 sm:mb-0 sm:mr-4">
           <p className="text-3xl title font-bold underline">
-            Taxis agréé par la Caisse Primaire d'Assurance Maladie (CPAM)
+            Taxis agréé par la Caisse Primaire d&#39;Assurance Maladie (CPAM)
           </p>
         </div>
         <div className="flex flex-col py-2">
