@@ -12,6 +12,7 @@ import ResaButton from "../buttons/ResaButton";
 import ContactButtonNav from "../buttons/ContactButtonNav";
 import informationDiaolog from "../messages/informationDiaolog";
 import InformationDiaolog from "../messages/informationDiaolog";
+import InformationDialog from "../messages/informationDiaolog";
 
 type FormValues = {
   nom: string;
@@ -364,54 +365,59 @@ const Block6 = () => {
             </span>
             <label className="block w-full">
               <input
-                {...register("numeroPriseEnCharge")}
+                {...register("numeroPriseEnCharge", {
+                  required: "Numéro requis",
+                })}
                 type="number"
                 placeholder="Numéro"
                 className="p-2 border border-gray-300 rounded w-full"
               />
               {errors.numeroPriseEnCharge && (
                 <p className="text-red-500">
-                  {errors.numeroPriseEnCharge?.message || "Numéro requis"}
+                  {errors.numeroPriseEnCharge.message}
                 </p>
               )}
             </label>
             <label className="block w-full">
               <input
-                {...register("ruePriseEnCharge")}
+                {...register("ruePriseEnCharge", { required: "Rue requise" })}
                 type="text"
                 placeholder="Voie"
                 className="p-2 border border-gray-300 rounded w-full"
               />
               {errors.ruePriseEnCharge && (
                 <p className="text-red-500">
-                  {errors.ruePriseEnCharge?.message || "Rue requise"}
+                  {errors.ruePriseEnCharge.message}
                 </p>
               )}
             </label>
             <label className="block w-full">
               <input
-                {...register("codePostalPriseEnCharge")}
-                type="text"
+                {...register("codePostalPriseEnCharge", {
+                  required: "Code postal requis",
+                })}
+                type="number"
                 placeholder="Code postal"
                 className="p-2 border border-gray-300 rounded w-full"
               />
               {errors.codePostalPriseEnCharge && (
                 <p className="text-red-500">
-                  {errors.codePostalPriseEnCharge?.message ||
-                    "Code postal requis"}
+                  {errors.codePostalPriseEnCharge.message}
                 </p>
               )}
             </label>
             <label className="block w-full">
               <input
-                {...register("villePriseEnCharge")}
+                {...register("villePriseEnCharge", {
+                  required: "Ville requise",
+                })}
                 type="text"
                 placeholder="Ville"
                 className="p-2 border border-gray-300 rounded w-full"
               />
               {errors.villePriseEnCharge && (
                 <p className="text-red-500">
-                  {errors.villePriseEnCharge?.message || "Ville requise"}
+                  {errors.villePriseEnCharge.message}
                 </p>
               )}
             </label>
@@ -424,54 +430,55 @@ const Block6 = () => {
             </span>
             <label className="block w-full">
               <input
-                {...register("numeroDestination")}
+                {...register("numeroDestination", {
+                  required: "Numéro requis",
+                })}
                 type="number"
                 placeholder="Numéro"
                 className="p-2 border border-gray-300 rounded w-full"
               />
               {errors.numeroDestination && (
                 <p className="text-red-500">
-                  {errors.numeroDestination?.message || "Numéro requis"}
+                  {errors.numeroDestination.message}
                 </p>
               )}
             </label>
             <label className="block w-full">
               <input
-                {...register("rueDestination")}
+                {...register("rueDestination", { required: "Rue requise" })}
                 type="text"
                 placeholder="Voie"
                 className="p-2 border border-gray-300 rounded w-full"
               />
               {errors.rueDestination && (
-                <p className="text-red-500">
-                  {errors.rueDestination?.message || "Rue requise"}
-                </p>
+                <p className="text-red-500">{errors.rueDestination.message}</p>
               )}
             </label>
             <label className="block w-full">
               <input
-                {...register("codePostalDestination")}
-                type="text"
+                {...register("codePostalDestination", {
+                  required: "Code postal requis",
+                })}
+                type="number"
                 placeholder="Code postal"
                 className="p-2 border border-gray-300 rounded w-full"
               />
               {errors.codePostalDestination && (
                 <p className="text-red-500">
-                  {errors.codePostalDestination?.message ||
-                    "Code postal requis"}
+                  {errors.codePostalDestination.message}
                 </p>
               )}
             </label>
             <label className="block w-full">
               <input
-                {...register("villeDestination")}
+                {...register("villeDestination", { required: "Ville requise" })}
                 type="text"
                 placeholder="Ville"
                 className="p-2 border border-gray-300 rounded w-full"
               />
               {errors.villeDestination && (
                 <p className="text-red-500">
-                  {errors.villeDestination?.message || "Ville requise"}
+                  {errors.villeDestination.message}
                 </p>
               )}
             </label>
@@ -497,9 +504,9 @@ const Block6 = () => {
   ];
 
   return (
-    <div className="w-full max-w-screen-xl mx-auto flex flex-col md:flex-col xl:flex-row xl:p-5 ">
+    <div className="w-full max-w-screen-xl mx-auto flex flex-col-reverse xl:flex-row xl:p-5">
       {dialog && (
-        <InformationDiaolog
+        <InformationDialog
           title={dialog.title}
           message={dialog.message}
           isError={dialog.isError}
@@ -507,9 +514,9 @@ const Block6 = () => {
           onClose={handleCloseDialog}
         />
       )}
-
+      {/* Premier bloc : Texte */}
       <div
-        className="flex-1 xl:mr-5 bg-blue-100 rounded-lg p-5"
+        className="flex-1 xl:mr-5 bg-blue-100 rounded-lg p-5 mt-8 xl:mt-0"
         style={{ boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)" }}
       >
         <div className="flex flex-col xl:p-3">
@@ -525,9 +532,15 @@ const Block6 = () => {
             Transport événementiel, occasionnel, touristique, ou d&#39;affaires,
             n&#39;hésitez pas à formuler vos demandes.
           </p>
-          <div className="flex justify-around mt-4">
-            <ResaButton />
-            <ContactButtonNav />
+          <div className="flex flex-col md:flex-row justify-around items-center mt-6">
+            <div className="mt-4 md:mt-0">
+              {" "}
+              <ResaButton />
+            </div>
+            <div className="mt-4 md:mt-0">
+              {" "}
+              <ContactButtonNav />
+            </div>
           </div>
           <div className="mt-8">
             <p className="title text-2xl font-semibold">
@@ -552,15 +565,14 @@ const Block6 = () => {
         </div>
       </div>
 
-      {/* Second block image */}
+      {/* Second bloc : Formulaire */}
       <div
-        className="mt-8 mx-auto xl:mt-0 xl:ml-5 xl:w-1/2 w-full  
-       flex flex-col items-center justify-center rounded-lg bg-blue-100 box-shadow p-5"
+        className="mt-8 mx-auto xl:mt-0 xl:ml-5 xl:w-1/2 w-full flex flex-col items-center justify-center rounded-lg bg-blue-100 box-shadow p-5"
         style={{ boxShadow: "0 10px 30px rgba(0, 0, 0, 0.3)" }}
       >
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full  xl:w-full overflow-y-auto flex flex-col h-full"
+          className="w-full xl:w-full overflow-y-auto flex flex-col h-full"
         >
           <ol className="flex mx-auto justify-center items-center w-full text-sm font-medium text-center text-white dark:text-white sm:text-base">
             {steps.map((step, index) => (
@@ -568,7 +580,7 @@ const Block6 = () => {
                 key={index}
                 className={`flex items-center ${
                   index < steps.length - 1
-                    ? "after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700"
+                    ? "after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700"
                     : ""
                 } ${
                   index === currentStep
@@ -613,7 +625,7 @@ const Block6 = () => {
             </button>
             <button
               type="submit"
-              className={`py-2 px-4 bg-blue-600 text-white rounded `}
+              className="py-2 px-4 bg-blue-600 text-white rounded"
             >
               {currentStep === steps.length - 1 ? "Soumettre" : "Suivant"}
             </button>

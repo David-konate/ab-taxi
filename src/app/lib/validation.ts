@@ -26,18 +26,16 @@ export const schemaContact3 = z.object({
   ruePriseEnCharge: z.string().min(1, "Voie de prise en charge requise"),
   codePostalPriseEnCharge: z
     .string()
-    .min(5, "Code postal de prise en charge invalide")
-    .max(10, "Code postal de prise en charge invalide")
-    .regex(/^\d{5}(?:[-\s]\d{4})?$/, "Code postal de prise en charge invalide"),
+    .min(1, "Code postal de prise en charge invalide")
+    .max(10, "Code postal de prise en charge invalide"),
   villePriseEnCharge: z.string().min(1, "Ville de prise en charge requise"),
 
   numeroDestination: z.string().min(1, "Numéro de destination requis"),
   rueDestination: z.string().min(1, "Rue de destination requise"),
   codePostalDestination: z
     .string()
-    .min(5, "Code postal de destination invalide")
-    .max(10, "Code postal de destination invalide")
-    .regex(/^\d{5}(?:[-\s]\d{4})?$/, "Code postal de destination invalide"),
+    .min(1, "Code postal de destination invalide")
+    .max(10, "Code postal de destination invalide"),
   villeDestination: z.string().min(1, "Ville de destination requise"),
 });
 

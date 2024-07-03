@@ -1,23 +1,18 @@
-"use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 const Block4 = () => {
-  const [open, setOpen] = useState(true);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
   const [openIndex, setOpenIndex] = useState(null);
 
-  const handleClick2 = (index: any) => {
+  const handleClick2 = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+
   const data = [
     {
       title: "Taxis agréé par la Caisse Primaire d'Assurance Maladie (CPAM)",
       content:
-        "Si vous devez effectuer un transport pris en charge par la Sécurité Sociale, assurez-vous de le faire avec un taxi  conventionné. Le remboursement de ces trajets se fait selon vos  droits, pouvant aller jusqu'à 100% dans la plupart des cas. Dans la majorité des cas, nous pouvons facturer directement votre  caisse d'assurance maladie pour faciliter le processus de  remboursement",
+        "Si vous devez effectuer un transport pris en charge par la Sécurité Sociale, assurez-vous de le faire avec un taxi conventionné. Le remboursement de ces trajets se fait selon vos droits, pouvant aller jusqu'à 100% dans la plupart des cas. Dans la majorité des cas, nous pouvons facturer directement votre caisse d'assurance maladie pour faciliter le processus de remboursement.",
     },
     {
       title:
@@ -28,21 +23,21 @@ const Block4 = () => {
     {
       title: "Commandez votre taxi conventionné avec remboursement par la CPAM",
       content:
-        "Pour tout déplacement pris en charge par la Sécurité Sociale  il est impératif d'utiliser un taxi conventionné. Le bon de transport est obligatoire et doit comporter la mention « taxi ». Vous devez également fournir au chauffeur une attestation de votre centre de sécurité sociale valide depuis moins d’un an ainsi que votre carte vitale. Les remboursements sont soumis à vos droits et peuvent atteindre jusqu'à 100%. Les trajets sont autorisés vers les départements d'Ile-de-France et proximité  sans restriction particulière. Pour tout déplacement dépassant 150 km, une autorisation préalable de votre caisse est nécessaire.",
+        "Pour tout déplacement pris en charge par la Sécurité Sociale, il est impératif d'utiliser un taxi conventionné. Le bon de transport est obligatoire et doit comporter la mention « taxi ». Vous devez également fournir au chauffeur une attestation de votre centre de sécurité sociale valide depuis moins d’un an ainsi que votre carte vitale. Les remboursements sont soumis à vos droits et peuvent atteindre jusqu'à 100%. Les trajets sont autorisés vers les départements d'Ile-de-France et proximité sans restriction particulière. Pour tout déplacement dépassant 150 km, une autorisation préalable de votre caisse est nécessaire.",
     },
     {
       title: "Nos avantages et pourquoi faire appel à votre taxi conventionné",
       content:
-        "Notre service de taxi conventionné s'étend sur toute l'Île-de-France et les départements limitrophes, vous offrant une couverture complète pour vos déplacements. Que vous soyez à Paris, en banlieue ou dans les environs, nos chauffeurs conventionnés vous accompagnent partout où vous avez besoin d'aller",
+        "Notre service de taxi conventionné s'étend sur toute l'Île-de-France et les départements limitrophes, vous offrant une couverture complète pour vos déplacements. Que vous soyez à Paris, en banlieue ou dans les environs, nos chauffeurs conventionnés vous accompagnent partout où vous avez besoin d'aller.",
     },
   ];
 
   return (
-    <div className="w-full max-w-screen-xl mx-auto flex flex-col sm:flex-row justify-between p-4">
+    <div className="w-full max-w-screen-xl mx-auto flex flex-col sm:flex-row xl:flex-row xl:p-5">
       <div className="w-full sm:w-1/2 mx-auto sm:text-left mb-5">
         <div className="mb-4 sm:mb-0 sm:mr-4">
           <p className="text-3xl title font-bold underline">
-            Taxis agréé par la Caisse Primaire d Assurance Maladie (CPAM)
+            Taxis agréé par la Caisse Primaire d'Assurance Maladie (CPAM)
           </p>
         </div>
         <div className="flex flex-col py-2">
@@ -92,7 +87,6 @@ const Block4 = () => {
               </button>
               {openIndex === index && (
                 <div className="pl-9 bg-gray-50 p-4 mt-2 rounded-b-lg">
-                  {" "}
                   <p className="text-lg font-bold">{item.content}</p>
                 </div>
               )}
@@ -100,14 +94,14 @@ const Block4 = () => {
           ))}
         </div>
       </div>
-      <div className="w-full sm:w-1/2 sm:mt-5 mx-auto">
-        <div className="mt-1">
+      <div className="w-full sm:w-1/2 xl:w-1/2 flex justify-center items-center">
+        <div className="mt-8 mx-auto xl:mt-0 xl:ml-5 flex justify-center items-center">
           <Image
-            src="/test.png"
+            src="/resaTaxi.png"
             width={500}
-            height={80}
+            height={500}
             alt="ABV-taxi logo"
-            className="object-cover w-full h-full rounded-lg"
+            className="object-cover w-full h-full rounded-lg md:w-80 md:h-80 xl:w-96 xl:h-96"
           />
         </div>
       </div>

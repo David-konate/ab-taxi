@@ -13,7 +13,7 @@ const Block1 = () => {
   ];
 
   return (
-    <div className="w-full max-w-screen-xl mx-auto flex flex-col md:flex-col xl:flex-row xl:p-5 ">
+    <div className="w-full max-w-screen-xl mx-auto flex flex-col md:flex-col xl:flex-row xl:p-5">
       <div className="flex-1 xl:mr-5">
         {/* Textual content */}
         <div className="mb-4 md:mb-0 xl:p-5">
@@ -83,14 +83,14 @@ const Block1 = () => {
         </div>
       </div>
       {/* Second block image */}
-      <div className="mt-8 mx-auto xl:mt-0 xl:ml-5 xl:w-1/2 flex justify-center">
-        <div className="w-full md:w-3/4 xl:w-full">
+      <div className="mt-8 mx-auto xl:mt-0 xl:ml-5 xl:w-1/2 flex justify-center items-center">
+        <div>
           <Image
-            src="/test.png"
+            src="/resaPhone.png"
             width={500}
             height={500}
             alt="ABV-taxi logo"
-            className="object-cover w-full h-full rounded-lg"
+            className="object-cover w-full h-full rounded-lg md:w-80 md:h-80 xl:w-96 xl:h-96"
           />
         </div>
       </div>
