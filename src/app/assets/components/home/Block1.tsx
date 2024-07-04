@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import ContactButton from "../buttons/ContactButton";
 import ResaButton from "../buttons/ResaButton";
+import ContactButtonNav from "../buttons/ContactButtonNav";
 
 const Block1 = () => {
   const trajets = [
@@ -73,11 +74,13 @@ const Block1 = () => {
         </div>
 
         {/* Buttons */}
-        <div className="mt-3 xl:mt-4 flex flex-row justify-around items-center">
-          <div>
+        <div className="flex flex-col md:flex-row justify-around items-center mt-6">
+          <div className="mt-4 md:mt-0">
+            {" "}
             <ResaButton />
           </div>
-          <div className="ml-4">
+          <div className="mt-4 md:mt-0">
+            {" "}
             <ContactButton />
           </div>
         </div>

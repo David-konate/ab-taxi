@@ -10,7 +10,7 @@ const Block4 = () => {
 
   const data = [
     {
-      title: "Taxis agréé par la Caisse Primaire d'Assurance Maladie (CPAM)",
+      title: "Taxis agréés par la Caisse Primaire d'Assurance Maladie (CPAM)",
       content:
         "Si vous devez effectuer un transport pris en charge par la Sécurité Sociale, assurez-vous de le faire avec un taxi conventionné. Le remboursement de ces trajets se fait selon vos droits, pouvant aller jusqu'à 100% dans la plupart des cas. Dans la majorité des cas, nous pouvons facturer directement votre caisse d'assurance maladie pour faciliter le processus de remboursement.",
     },
@@ -28,7 +28,7 @@ const Block4 = () => {
     {
       title: "Nos avantages et pourquoi faire appel à votre taxi conventionné",
       content:
-        "Notre service de taxi conventionné s'étend sur toute l'Île-de-France et les départements limitrophes, vous offrant une couverture complète pour vos déplacements. Que vous soyez à Paris, en banlieue ou dans les environs, nos chauffeurs conventionnés vous accompagnent partout où vous avez besoin d'aller.",
+        "Notre service de taxis conventionnés s'étend sur toute l'Île-de-France et les départements limitrophes, vous offrant une couverture complète pour vos déplacements. Que vous soyez à Paris, en banlieue ou dans les environs, nos chauffeurs conventionnés vous accompagnent partout où vous avez besoin d'aller.",
     },
   ];
 
@@ -37,7 +37,7 @@ const Block4 = () => {
       <div className="w-full sm:w-1/2 mx-auto sm:text-left mb-5">
         <div className="mb-4 sm:mb-0 sm:mr-4">
           <p className="text-3xl title font-bold underline">
-            Taxis agréé par la Caisse Primaire d&#39;Assurance Maladie (CPAM)
+            Taxis agréés par la Caisse Primaire d&#39;Assurance Maladie (CPAM)
           </p>
         </div>
         <div className="flex flex-col py-2">
@@ -95,13 +95,13 @@ const Block4 = () => {
         </div>
       </div>
       <div className="w-full sm:w-1/2 xl:w-1/2 flex justify-center items-center">
-        <div className="mt-8 mx-auto xl:mt-0 xl:ml-5 flex justify-center items-center">
+        <div className="mt-8 mx-auto xl:mt-0 xl:ml-5 flex justify-center items-center rounded-lg bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500">
           <Image
-            src="/resaTaxi.png"
-            width={500}
-            height={500}
+            src="/AB-Taxi.webp"
+            width={450}
+            height={450}
             alt="ABV-taxi logo"
-            className="object-cover w-full h-full rounded-lg md:w-80 md:h-80 xl:w-96 xl:h-96"
+            className="object-cover w-full h-full rounded-lg"
           />
         </div>
       </div>
