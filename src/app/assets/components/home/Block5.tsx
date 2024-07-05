@@ -1,4 +1,3 @@
-"use client";
 import React, { useState, useEffect } from "react";
 
 const Block5 = () => {
@@ -6,9 +5,10 @@ const Block5 = () => {
   const [error, setError] = useState<string | null>(null);
   const [placeDetails, setPlaceDetails] = useState<any>(null);
   const [reviews, setReviews] = useState<any[]>([]);
+  const [currentReviewIndex, setCurrentReviewIndex] = useState<number>(0);
 
   const apiKey = "AIzaSyDrH0Iv4IqmewW-ImT72ryU2UBytKZtWe0"; // Replace with your real Google Maps API key
-  const placeId = "ChIJr8TzC0-6N64RyP-iF55yje0"; // Identifier of the place you want to fetch
+  const placeId = "ChIJr8TzC0-6N64RyP-iF55yje0"; // Identifier of the place
 
   useEffect(() => {
     const loadGoogleMapsScript = async () => {
@@ -42,30 +42,28 @@ const Block5 = () => {
         service.getDetails({ placeId }, (placeResult: any, status) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
             setPlaceDetails(placeResult);
-            // Extract and set the first 5 reviews (if available)
-            // Handle potential errors and empty reviews gracefully
             if (placeResult.reviews && placeResult.reviews.length > 0) {
               setReviews(placeResult.reviews.slice(0, 5));
             } else {
-              console.warn("No reviews found for this place.");
+              console.warn("Aucun avis trouvé pour cet endroit.");
             }
           } else {
-            setError("Request for place details failed");
+            setError("Échec de la requête pour les détails du lieu");
           }
           setIsLoading(false);
         });
       } else {
-        setError("Google Maps Places API unavailable");
+        setError("API Google Maps Places non disponible");
         setIsLoading(false);
       }
     };
 
     const fetchPlaceDetails = async () => {
       setIsLoading(true);
-      setError(null); // Clear previous errors
+      setError(null);
 
       if (!apiKey || !placeId) {
-        setError("Missing Google Maps API key or placeId");
+        setError("Clé API Google Maps ou placeId manquant");
         setIsLoading(false);
         return;
       }
@@ -74,14 +72,28 @@ const Block5 = () => {
         await loadGoogleMapsScript();
         initializeGoogleMaps();
       } catch (error) {
-        console.error("Error loading Google Maps Places library:", error);
-        setError("Failed to load Google Maps Places library");
+        console.error(
+          "Erreur lors du chargement de la bibliothèque Google Maps Places:",
+          error
+        );
+        setError("Échec du chargement de la bibliothèque Google Maps Places");
         setIsLoading(false);
       }
     };
 
     fetchPlaceDetails();
   }, [apiKey, placeId]);
+
+  const handlePreviousReview = () => {
+    setCurrentReviewIndex((prevIndex) => {
+      const newIndex = prevIndex - 1;
+      return newIndex < 0 ? reviews.length - 1 : newIndex;
+    });
+  };
+
+  const handleNextReview = () => {
+    setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -92,44 +104,68 @@ const Block5 = () => {
   }
 
   if (!placeDetails) {
-    return null; // Or a placeholder while loading
+    return null;
   }
 
   return (
-    <div className="p-4">
-      <div className="mb-4 sm:mb-0 sm:mr-4">
-        <p className="title text-3xl font-bold underline">AVIS</p>
-      </div>
-      {/* Rendre conditionnellement les avis s'ils sont disponibles */}
-      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
-        {reviews.length > 0 ? (
-          reviews.map((review, index) => (
-            <div
-              key={index}
-              className="bg-gradient-to-r from-indigo-500 to-indigo-700 p-6 rounded-lg shadow-md hover:shadow-lg cursor-pointer"
+    <div className="max-w-lg mx-auto bg-white rounded-lg shadow-lg p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-semibold text-gray-800">Avis Clients</h2>
+        <div className="flex space-x-4">
+          <button
+            className="bg-gray-200 hover:bg-gray-300 rounded-full p-2"
+            onClick={handlePreviousReview}
+          >
+            <svg
+              className="fill-current text-gray-700 h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
             >
-              <div className="flex items-center space-x-2 mb-4">
-                {/* Afficher le nom de l'auteur */}
-                <p className="font-bold text-white text-lg">
-                  {review.author_name}
-                </p>
-              </div>
+              <path
+                fillRule="evenodd"
+                d="M10 12a2 2 0 100-4 2 2 0 000 4zM2 10a8 8 0 1116 0 8 8 0 01-16 0zm18 0a10 10 0 10-20 0 10 10 0 0020 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+          <button
+            className="bg-gray-200 hover:bg-gray-300 rounded-full p-2"
+            onClick={handleNextReview}
+          >
+            <svg
+              className="fill-current text-gray-700 h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 12a2 2 0 100-4 2 2 0 000 4zM2 10a8 8 0 1116 0 8 8 0 01-16 0zm18 0a10 10 0 10-20 0 10 10 0 0020 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
 
-              {/* Afficher la note avec des étoiles en utilisant des composants Tailwind */}
-              <div className="flex items-center mb-4">
-                {Array.from({ length: 5 }).map((_, idx) => (
-                  <span key={idx} className="text-yellow-400 text-lg">
-                    {review.rating > idx ? "★" : "☆"}
-                  </span>
-                ))}
-              </div>
-
-              {/* Afficher le texte de l'avis */}
-              <p className="text-blue-800 font-bold text-base bg-white rounded-lg p-4">
-                {review.text}
+      <div className="p-4 bg-gray-50 rounded-lg">
+        {reviews.length > 0 ? (
+          <div className="bg-gradient-to-r from-indigo-500 to-indigo-700 p-6 rounded-lg shadow-md hover:shadow-lg cursor-pointer">
+            <div className="flex items-center space-x-2 mb-4">
+              <p className="font-bold text-white text-lg">
+                {reviews[currentReviewIndex].author_name}
               </p>
             </div>
-          ))
+            <div className="flex items-center mb-4">
+              {Array.from({ length: 5 }).map((_, idx) => (
+                <span key={idx} className="text-yellow-400 text-lg">
+                  {reviews[currentReviewIndex].rating > idx ? "★" : "☆"}
+                </span>
+              ))}
+            </div>
+            <p className="text-blue-800 font-bold text-base bg-white rounded-lg p-4">
+              {reviews[currentReviewIndex].text}
+            </p>
+          </div>
         ) : (
           <p className="text-white text-lg">
             Aucun avis trouvé pour cet endroit.

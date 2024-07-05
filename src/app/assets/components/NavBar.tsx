@@ -14,13 +14,13 @@ const NavBar = () => {
         <div className="flex items-center">
           <Link href="/#">
             <div className="flex items-center">
-              {/* <Image
+              <Image
                 className="h-20 rounded-lg"
-                src="/ab-logo.webp"
+                src="/ab-logo.jpeg"
                 width={100}
                 height={100}
                 alt="ABV-taxi logo"
-              /> */}
+              />
               <h4
                 className="title text-xl font-bold ms-5 italic"
                 style={{ color: "#0080FF" }}
