@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 const Block5 = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [placeDetails, setPlaceDetails] = useState<any>(null); // Use a more specific type if available
+  const [placeDetails, setPlaceDetails] = useState<any>(null);
   const apiKey = "AIzaSyDrH0Iv4IqmewW-ImT72ryU2UBytKZtWe0"; // Replace with your actual Google Maps API key
   const placeId = "ChIJr8TzC0-6N64RyP-iF55yje0";
 
@@ -15,13 +15,16 @@ const Block5 = () => {
           `script[src="https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places"]`
         );
         if (existingScript) {
-          resolve();
+          existingScript.addEventListener("load", () => resolve());
+          existingScript.addEventListener("error", () =>
+            reject(new Error("Failed to load Google Maps script"))
+          );
           return;
         }
 
         const script = document.createElement("script");
 
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&loading=async`; // Ajout de loading=async**
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`; // Correct the script URL
         script.async = true;
         script.onload = () => resolve();
         script.onerror = () =>
