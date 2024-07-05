@@ -35,7 +35,9 @@ const Home = () => {
       <div className="p-5">
         <Block4 />
       </div>
-      <div className="p-2 sm:p-5">{/* <Block5 /> */}</div>
+      <div className="p-2 sm:p-5">
+        <Block5 />
+      </div>
       <div className="absolute mt-8 w-full left-0">
         <Footer />
       </div>

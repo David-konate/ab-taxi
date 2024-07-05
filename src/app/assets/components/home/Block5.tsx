@@ -5,8 +5,10 @@ const Block5 = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [placeDetails, setPlaceDetails] = useState<any>(null);
-  const apiKey = "AIzaSyDrH0Iv4IqmewW-ImT72ryU2UBytKZtWe0"; // Replace with your actual Google Maps API key
-  const placeId = "ChIJr8TzC0-6N64RyP-iF55yje0";
+  const [reviews, setReviews] = useState<any[]>([]);
+
+  const apiKey = "AIzaSyDrH0Iv4IqmewW-ImT72ryU2UBytKZtWe0"; // Replace with your real Google Maps API key
+  const placeId = "ChIJr8TzC0-6N64RyP-iF55yje0"; // Identifier of the place you want to fetch
 
   useEffect(() => {
     const loadGoogleMapsScript = async () => {
@@ -23,8 +25,7 @@ const Block5 = () => {
         }
 
         const script = document.createElement("script");
-
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`; // Correct the script URL
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
         script.async = true;
         script.onload = () => resolve();
         script.onerror = () =>
@@ -38,26 +39,33 @@ const Block5 = () => {
         const service = new window.google.maps.places.PlacesService(
           document.createElement("div")
         );
-        service.getDetails({ placeId: placeId }, (placeResult, status) => {
+        service.getDetails({ placeId }, (placeResult: any, status) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
             setPlaceDetails(placeResult);
+            // Extract and set the first 5 reviews (if available)
+            // Handle potential errors and empty reviews gracefully
+            if (placeResult.reviews && placeResult.reviews.length > 0) {
+              setReviews(placeResult.reviews.slice(0, 5));
+            } else {
+              console.warn("No reviews found for this place.");
+            }
           } else {
-            setError("Place details request failed");
+            setError("Request for place details failed");
           }
           setIsLoading(false);
         });
       } else {
-        setError("Google Maps Places API is not available");
+        setError("Google Maps Places API unavailable");
         setIsLoading(false);
       }
     };
 
     const fetchPlaceDetails = async () => {
       setIsLoading(true);
-      setError(null); // Clear any previous errors
+      setError(null); // Clear previous errors
 
       if (!apiKey || !placeId) {
-        setError("Missing required Google Maps API key or placeId");
+        setError("Missing Google Maps API key or placeId");
         setIsLoading(false);
         return;
       }
@@ -84,16 +92,48 @@ const Block5 = () => {
   }
 
   if (!placeDetails) {
-    return null; // Or some placeholder while loading
+    return null; // Or a placeholder while loading
   }
 
-  // Render your component with placeDetails
   return (
-    <div>
-      <h1>{placeDetails.name}</h1>
-      <p>{placeDetails.formatted_address}</p>
-      <p>Rating: {placeDetails.rating}</p>
-      {/* Render other details you need */}
+    <div className="p-4">
+      <h2 className="text-white text-3xl font-bold mb-6">Avis</h2>
+      {/* Rendre conditionnellement les avis s'ils sont disponibles */}
+      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
+        {reviews.length > 0 ? (
+          reviews.map((review, index) => (
+            <div
+              key={index}
+              className="bg-gradient-to-r from-indigo-500 to-indigo-700 p-6 rounded-lg shadow-md hover:shadow-lg cursor-pointer"
+            >
+              <div className="flex items-center space-x-2 mb-4">
+                {/* Afficher le nom de l'auteur */}
+                <p className="font-bold text-white text-lg">
+                  {review.author_name}
+                </p>
+              </div>
+
+              {/* Afficher la note avec des étoiles en utilisant des composants Tailwind */}
+              <div className="flex items-center mb-4">
+                {Array.from({ length: 5 }).map((_, idx) => (
+                  <span key={idx} className="text-yellow-400 text-lg">
+                    {review.rating > idx ? "★" : "☆"}
+                  </span>
+                ))}
+              </div>
+
+              {/* Afficher le texte de l'avis */}
+              <p className="text-blue-800 font-bold text-base bg-white rounded-lg p-4">
+                {review.text}
+              </p>
+            </div>
+          ))
+        ) : (
+          <p className="text-white text-lg">
+            Aucun avis trouvé pour cet endroit.
+          </p>
+        )}
+      </div>
     </div>
   );
 };
