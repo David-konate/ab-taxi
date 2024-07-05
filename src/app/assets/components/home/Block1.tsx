@@ -36,10 +36,10 @@ const Block1 = () => {
           </p>
         </div>
         {/* List of services with checkmarks */}
-        <div className="mt-1 flex flex-row items-center justify-between">
-          <div className="flex-1 xl:mr-4">
+        <div className="mt-8 md:mt-1  flex flex-row items-center justify-between">
+          <div className="flex-1  xl:mr-4">
             {trajets.map((trajet, index) => (
-              <div key={index} className="flex items-center mb-2">
+              <div key={index} className="flex items-center mb-2  mt-3">
                 <Image
                   src="/check.svg"
                   width={20}
