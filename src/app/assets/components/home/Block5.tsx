@@ -97,7 +97,9 @@ const Block5 = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-white text-3xl font-bold mb-6">Avis</h2>
+      <div className="mb-4 sm:mb-0 sm:mr-4">
+        <p className="title text-3xl font-bold underline">AVIS</p>
+      </div>
       {/* Rendre conditionnellement les avis s'ils sont disponibles */}
       <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
         {reviews.length > 0 ? (
