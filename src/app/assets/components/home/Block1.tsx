@@ -31,8 +31,8 @@ const Block1 = () => {
             style={{ color: "white" }}
           >
             A.B Taxi Service vous propose un service de transport de qualité en
-            Île-de-France. Nous assurons des trajets fiables vers les aéroports,
-            les gares et pour vos rendez-vous médicaux CPAM.
+            Île-de-France. <br /> Nous assurons des trajets fiables vers les
+            aéroports, les gares et pour vos rendez-vous médicaux CPAM.
           </p>
         </div>
         {/* List of services with checkmarks */}
