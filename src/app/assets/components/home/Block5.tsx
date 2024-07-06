@@ -6,6 +6,7 @@ const Block5 = () => {
   const [placeDetails, setPlaceDetails] = useState<any>(null);
   const [reviews, setReviews] = useState<any[]>([]);
   const [currentReviewIndex, setCurrentReviewIndex] = useState<number>(0);
+  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
 
   const apiKey = "AIzaSyDrH0Iv4IqmewW-ImT72ryU2UBytKZtWe0"; // Replace with your real Google Maps API key
   const placeId = "ChIJr8TzC0-6N64RyP-iF55yje0"; // Identifier of the places
@@ -85,11 +86,20 @@ const Block5 = () => {
   }, [apiKey, placeId]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
-    }, 3000);
+    const startInterval = () => {
+      const id = setInterval(() => {
+        setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
+      }, 3000);
+      setIntervalId(id);
+    };
 
-    return () => clearInterval(interval);
+    if (reviews.length > 0) {
+      startInterval();
+    }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
   }, [reviews.length]);
 
   const handlePreviousReview = () => {
@@ -101,6 +111,17 @@ const Block5 = () => {
 
   const handleNextReview = () => {
     setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
+  };
+
+  const handleMouseEnter = () => {
+    if (intervalId) clearInterval(intervalId);
+  };
+
+  const handleMouseLeave = () => {
+    const id = setInterval(() => {
+      setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
+    }, 3000);
+    setIntervalId(id);
   };
 
   if (isLoading) {
@@ -155,7 +176,11 @@ const Block5 = () => {
         </div>
       </div>
 
-      <div className="p-4 bg-gray-50 rounded-lg">
+      <div
+        className="p-4 bg-gray-50 rounded-lg"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         {reviews.length > 0 ? (
           <div className="bg-gradient-to-r from-indigo-500 to-indigo-700 p-6 rounded-lg shadow-md hover:shadow-lg cursor-pointer">
             <div className="flex items-center space-x-2 mb-4">
