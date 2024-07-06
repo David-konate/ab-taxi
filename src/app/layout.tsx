@@ -10,6 +10,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="fr" className="min-h-screen">
       <Head>
+        <link rel="icon" href="/favicon.ico" />
         <title>AB Taxi</title>
 
         <meta
