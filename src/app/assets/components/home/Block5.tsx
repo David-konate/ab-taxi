@@ -113,11 +113,11 @@ const Block5 = () => {
     setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
   };
 
-  const handleMouseEnter = () => {
+  const handlePause = () => {
     if (intervalId) clearInterval(intervalId);
   };
 
-  const handleMouseLeave = () => {
+  const handleResume = () => {
     const id = setInterval(() => {
       setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
     }, 3000);
@@ -178,8 +178,10 @@ const Block5 = () => {
 
       <div
         className="p-4 bg-gray-50 rounded-lg"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        onMouseEnter={handlePause}
+        onMouseLeave={handleResume}
+        onTouchStart={handlePause}
+        onTouchEnd={handleResume}
       >
         {reviews.length > 0 ? (
           <div className="bg-gradient-to-r from-indigo-500 to-indigo-700 p-6 rounded-lg shadow-md hover:shadow-lg cursor-pointer">
