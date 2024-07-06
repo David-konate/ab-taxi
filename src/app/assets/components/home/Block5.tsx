@@ -184,7 +184,7 @@ const Block5 = () => {
         onTouchEnd={handleResume}
       >
         {reviews.length > 0 ? (
-          <div className="bg-gradient-to-r from-indigo-500 to-indigo-700 p-6 rounded-lg shadow-md hover:shadow-lg cursor-pointer">
+          <div className="bg-blue p-6 rounded-lg shadow-md hover:shadow-lg cursor-pointer">
             <div className="flex items-center space-x-2 mb-4">
               <p className="font-bold text-white text-lg">
                 {reviews[currentReviewIndex].author_name}
