@@ -89,7 +89,7 @@ const Block5 = () => {
     const startInterval = () => {
       const id = setInterval(() => {
         setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
-      }, 3000);
+      }, 5000);
       setIntervalId(id);
     };
 
@@ -137,7 +137,7 @@ const Block5 = () => {
   }
 
   return (
-    <div className="max-w-lg mx-auto bg-white rounded-lg shadow-lg p-6">
+    <div className="max-w-lg mx-auto bg-blue-100 rounded-lg shadow-lg p-6">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold text-gray-800">Avis Clients</h2>
         <div className="flex space-x-4">
