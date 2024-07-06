@@ -8,7 +8,7 @@ const Block5 = () => {
   const [currentReviewIndex, setCurrentReviewIndex] = useState<number>(0);
 
   const apiKey = "AIzaSyDrH0Iv4IqmewW-ImT72ryU2UBytKZtWe0"; // Replace with your real Google Maps API key
-  const placeId = "ChIJr8TzC0-6N64RyP-iF55yje0"; // Identifier of the place
+  const placeId = "ChIJr8TzC0-6N64RyP-iF55yje0"; // Identifier of the places
 
   useEffect(() => {
     const loadGoogleMapsScript = async () => {
@@ -83,6 +83,14 @@ const Block5 = () => {
 
     fetchPlaceDetails();
   }, [apiKey, placeId]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [reviews.length]);
 
   const handlePreviousReview = () => {
     setCurrentReviewIndex((prevIndex) => {

@@ -50,19 +50,21 @@ const Block2 = () => {
           {services.map((service) => (
             <div
               key={service.title}
-              className="bg-white rounded-lg w-full shadow-md service-item "
+              className="bg-white rounded-lg w-full shadow-md service-item flex flex-col"
               style={{
                 backgroundImage: `url(${service.image})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                backgroundClip: "padding-box", // Add this line
+                backgroundClip: "padding-box",
               }}
             >
-              <div className="p-4 bg-white bg-opacity-70">
-                <h3 className="title text-lg font-bold">{service.title}</h3>
-                <p className="text-gray-700 font-bold mt-3">
-                  {service.description}
-                </p>
+              <div className="p-4 bg-white bg-opacity-70 flex-grow flex flex-col justify-between">
+                <div>
+                  <h3 className="title text-lg font-bold">{service.title}</h3>
+                  <p className="text-gray-700 font-bold mt-3">
+                    {service.description}
+                  </p>
+                </div>
                 <div className="flex items-center justify-end w-full mt-5">
                   <ResaButton2 />
                 </div>
