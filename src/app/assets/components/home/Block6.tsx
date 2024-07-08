@@ -10,8 +10,6 @@ import {
 } from "@/app/lib/validation";
 import ResaButton from "../buttons/ResaButton";
 import ContactButtonNav from "../buttons/ContactButtonNav";
-import informationDiaolog from "../messages/informationDiaolog";
-import InformationDiaolog from "../messages/informationDiaolog";
 import InformationDialog from "../messages/informationDiaolog";
 
 type FormValues = {

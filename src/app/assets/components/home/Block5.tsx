@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const Block5 = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -6,7 +6,7 @@ const Block5 = () => {
   const [placeDetails, setPlaceDetails] = useState<any>(null);
   const [reviews, setReviews] = useState<any[]>([]);
   const [currentReviewIndex, setCurrentReviewIndex] = useState<number>(0);
-  const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const apiKey = "AIzaSyDrH0Iv4IqmewW-ImT72ryU2UBytKZtWe0"; // Replace with your real Google Maps API key
   const placeId = "ChIJr8TzC0-6N64RyP-iF55yje0"; // Identifier of the places
@@ -43,6 +43,7 @@ const Block5 = () => {
         service.getDetails({ placeId }, (placeResult: any, status) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
             setPlaceDetails(placeResult);
+            console.log(placeResult);
             if (placeResult.reviews && placeResult.reviews.length > 0) {
               setReviews(placeResult.reviews.slice(0, 5));
             } else {
@@ -90,7 +91,7 @@ const Block5 = () => {
       const id = setInterval(() => {
         setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
       }, 5000);
-      setIntervalId(id);
+      intervalRef.current = id;
     };
 
     if (reviews.length > 0) {
@@ -98,7 +99,7 @@ const Block5 = () => {
     }
 
     return () => {
-      if (intervalId) clearInterval(intervalId);
+      if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, [reviews.length]);
 
@@ -114,14 +115,14 @@ const Block5 = () => {
   };
 
   const handlePause = () => {
-    if (intervalId) clearInterval(intervalId);
+    if (intervalRef.current) clearInterval(intervalRef.current);
   };
 
   const handleResume = () => {
     const id = setInterval(() => {
       setCurrentReviewIndex((prevIndex) => (prevIndex + 1) % reviews.length);
     }, 3000);
-    setIntervalId(id);
+    intervalRef.current = id;
   };
 
   if (isLoading) {

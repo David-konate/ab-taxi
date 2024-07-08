@@ -14,8 +14,8 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <title>AB Taxi</title>
 
         <meta
-          name="AB-Taxi, taxi conventionnés VSL et transports de santé agréés"
-          content="AB Taxi : transport aéroport, gare et CPAM. Taxis conventionnés VSL et transports de santé agréés. Paris et région parisienne. 24 heures sur 24, 7 jours sur 7. Réservez votre taxi conventionnés VSL et transports de santé agréés dès maintenant et profitez de nos tarifs compétitifs. Obtenez un devis gratuit."
+          name="AB-Taxi, taxi conventionnés Coulommiers VSL et transports de santé agréés - Coulommiers - 24 heures sur 24, 7 jours sur 7"
+          content="AB Taxi : transport aéroport, gare et CPAM. Taxis conventionnés VSL et transports de santé agréés. Coulommiers(77). 24 heures sur 24, 7 jours sur 7. Réservez votre taxi conventionné VSL et transports de santé agréés dès maintenant et profitez de nos tarifs compétitifs. Obtenez un devis gratuit."
         />
 
         {/* Load Inter font */}
@@ -25,11 +25,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <NavBar />
         <div className="container mx-auto max-w-7xl p-4">{children}</div>
         {/* Replace YOUR_API_KEY with your actual Google Maps API key */}
-        {/* <script
-          async
-          defer
-          src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyDrH0Iv4IqmewW-ImT72ryU2UBytKZtWe0&libraries=&callback=initMap`}
-        ></script> */}
       </body>
     </html>
   );
