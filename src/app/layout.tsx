@@ -25,11 +25,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <NavBar />
         <div className="container mx-auto max-w-7xl p-4">{children}</div>
         {/* Replace YOUR_API_KEY with your actual Google Maps API key */}
-        <script
+        {/* <script
           async
           defer
           src={`https://maps.googleapis.com/maps/api/js?key=AIzaSyDrH0Iv4IqmewW-ImT72ryU2UBytKZtWe0&libraries=&callback=initMap`}
-        ></script>
+        ></script> */}
       </body>
     </html>
   );
