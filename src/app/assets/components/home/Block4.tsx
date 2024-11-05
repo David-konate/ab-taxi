@@ -97,7 +97,7 @@ const Block4 = () => {
       <div className="w-full sm:w-1/2 xl:w-1/2 flex justify-center items-center">
         <div className="mt-8 mx-auto xl:mt-0 xl:ml-5 flex justify-center items-center rounded-lg bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500">
           <Image
-            src="/AB-Taxi.webp"
+            src="/AB-Taxi.jpeg"
             width={450}
             height={450}
             alt="ABV-taxi logo"

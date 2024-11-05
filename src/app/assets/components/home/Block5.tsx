@@ -8,8 +8,46 @@ const Block5 = () => {
   const [currentReviewIndex, setCurrentReviewIndex] = useState<number>(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const apiKey = "AIzaSyDrH0Iv4IqmewW-ImT72ryU2UBytKZtWe0"; // Replace with your real Google Maps API key
-  const placeId = "ChIJr8TzC0-6N64RyP-iF55yje0"; // Identifier of the places
+  // Clé API Google Maps (non utilisée pour le moment)
+  const apiKey = "AIzaSyDrH0Iv4IqmewW-ImT72ryU2UBytKZtWe0";
+  const placeId = "ChIJr8TzC0-6N64RyP-iF55yje0";
+
+  // Avis mockés pour un affichage manuel
+  const mockReviews = [
+    {
+      author_name: "N. J.A.",
+      rating: 5,
+      text: "2 trajets à Paris pour mon petit garçon. Mr est très sympathique et très professionnel. Il nous a conduit tout en douceur et avec bienveillance. Je ferais de nouveau appel à lui pour les futurs déplacements.",
+    },
+    {
+      author_name: "Jessica vignon",
+      rating: 5,
+      text: "Chauffeur de taxi ponctuel et courtois, le trajet s est fait dans la bonne humeur. Il vous enleve le stress d'un trajet sur Paris. A recommander !! Encore merci",
+    },
+    {
+      author_name: "Erna Gloria Abguillerm",
+      rating: 5,
+      text: "Je recommande, c'est une personne très correcte avec le patient, très ponctuel, est à l'écoute... une très bonne prise en charge. Je l'ai recommandé à plusieurs personnes qui en sont très satisfait également.",
+    },
+    {
+      author_name: "Ruiz Rosa",
+      rating: 5,
+      text: "Chauffeur de taxi très ponctuel,se rend disponible à toute heure de la journée selon c'est possibilité. Avenant et courtois. Je recommande fortement pour sa gentillesse et sa bienveillance.",
+    },
+    {
+      author_name: "Nathalie DESMOULIN",
+      rating: 5,
+      text: "Jamais le trajet jusqu'à Créteil ne m'a semblé aussi rapide 😊 Accueil chaleureux et personne très agréable avec une conduite souple. Je recommande sans hésitation!",
+    },
+  ];
+
+  // useEffect pour charger les avis mockés
+  useEffect(() => {
+    setReviews(mockReviews);
+  }, []);
+
+  /* 
+  Code de récupération des avis Google (commenté pour l'instant)
 
   useEffect(() => {
     const loadGoogleMapsScript = async () => {
@@ -85,7 +123,9 @@ const Block5 = () => {
 
     fetchPlaceDetails();
   }, [apiKey, placeId]);
+  */
 
+  // Carousel automatique des avis mockés
   useEffect(() => {
     const startInterval = () => {
       const id = setInterval(() => {
@@ -124,18 +164,6 @@ const Block5 = () => {
     }, 3000);
     intervalRef.current = id;
   };
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!placeDetails) {
-    return null;
-  }
 
   return (
     <div className="max-w-lg mx-auto bg-blue-100 rounded-lg shadow-lg p-6">

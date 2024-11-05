@@ -14,8 +14,16 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <title>AB Taxi</title>
 
         <meta
-          name="AB-Taxi, taxi conventionnés Coulommiers VSL et transports de santé agréés - Coulommiers - 24 heures sur 24, 7 jours sur 7"
-          content="AB Taxi : transport aéroport, gare et CPAM. Taxis conventionnés VSL et transports de santé agréés. Coulommiers(77). 24 heures sur 24, 7 jours sur 7. Réservez votre taxi conventionné VSL et transports de santé agréés dès maintenant et profitez de nos tarifs compétitifs. Obtenez un devis gratuit."
+          name="Taxi Coulommiers - Réservation en Ligne
+                Service de Taxi 24/7 à Coulommiers
+                Taxi Aéroport et Gare Coulommiers
+                Chauffeur Privé Coulommiers - Taxi Premium
+                Taxi Écologique et Confortable"
+          content="Réservez votre taxi à Coulommiers en ligne. Service rapide et fiable 24/7 pour tous vos déplacements.
+                  Besoin d’un taxi à Coulommiers ? Réservez en ligne pour un service de qualité, disponible jour et nuit.
+                  Taxi Coulommiers : transferts aéroport et gare, services professionnels et privés. Réservez maintenant !
+                  Chauffeur privé à Coulommiers : profitez d’un service premium et écologique pour tous vos trajets.
+                  Taxi Coulommiers : confort, sécurité et rapidité. Réservez votre course en quelques clics."
         />
 
         {/* Load Inter font */}

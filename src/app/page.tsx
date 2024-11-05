@@ -20,7 +20,7 @@ const Home = () => {
       <div
         className="p-2 sm:p-5"
         style={{
-          backgroundImage: "url(/paris.jpeg)", // Chemin relatif vers votre image dans public/
+          backgroundImage: "url(/paris.webp)", // Chemin relatif vers votre image dans public/
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed", // Image fixe pendant le défilement

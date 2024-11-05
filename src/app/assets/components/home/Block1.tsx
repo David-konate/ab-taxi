@@ -89,10 +89,10 @@ const Block1 = () => {
       <div className="mt-8 mx-auto xl:mt-0 xl:ml-5 xl:w-1/2 flex justify-center items-center">
         <div>
           <Image
-            src="/resaPhone.png"
-            width={500}
-            height={500}
-            alt="ABV-taxi logo"
+            src="/resaPhone.webp"
+            width={600}
+            height={600}
+            alt="AB-taxi image de taxi dans un smartphone"
             className="object-cover w-full h-full rounded-lg md:w-80 md:h-80 xl:w-96 xl:h-96"
           />
         </div>
