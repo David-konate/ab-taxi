@@ -173,6 +173,7 @@ const Block5 = () => {
           <button
             className="bg-gray-200 hover:bg-gray-300 rounded-full p-2"
             onClick={handlePreviousReview}
+            aria-label="Afficher l'avis précédent"
           >
             <svg
               className="fill-current text-gray-700 h-4 w-4"
@@ -186,9 +187,11 @@ const Block5 = () => {
               />
             </svg>
           </button>
+
           <button
             className="bg-gray-200 hover:bg-gray-300 rounded-full p-2"
             onClick={handleNextReview}
+            aria-label="Afficher l'avis suivant"
           >
             <svg
               className="fill-current text-gray-700 h-4 w-4"
